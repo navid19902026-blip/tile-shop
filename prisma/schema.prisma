@@ -1,0 +1,356 @@
+// Prisma schema — Tile & Ceramic Shop
+// Run `npx prisma migrate dev` after setting DATABASE_URL in .env
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- Auth (NextAuth) ----------
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
+enum LoyaltyTierLevel {
+  BRONZE
+  SILVER
+  GOLD
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  phone         String?   @unique
+  emailVerified DateTime?
+  password      String?
+  image         String?
+  role          Role      @default(CUSTOMER)
+
+  totalPurchase Int               @default(0) // total spent in toman, drives tier
+  loyaltyPoints Int               @default(0)
+  tier          LoyaltyTierLevel  @default(BRONZE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  accounts             Account[]
+  sessions             Session[]
+  addresses            Address[]
+  orders               Order[]
+  reviews              Review[]
+  cart                 Cart?
+  loyaltyTransactions  LoyaltyTransaction[]
+  chatConversations    ChatConversation[]
+  chatMessages         ChatMessage[]
+}
+
+// ---------- Catalog ----------
+
+model Category {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?
+  image       String?
+  parentId    String?
+  parent      Category?  @relation("CategoryToCategory", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryToCategory")
+  products    Product[]
+  createdAt   DateTime @default(now())
+}
+
+enum ProductUnit {
+  SQUARE_METER
+  CARTON
+  PIECE
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String   @db.Text
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+
+  brand     String?
+  size      String? // e.g. "60x60"
+  color     String?
+  material  String? // ceramic, porcelain, ...
+  antiSlip  Boolean  @default(false)
+  usage     String? // wall, floor, both
+
+  price       Int // price in toman
+  unit        ProductUnit @default(SQUARE_METER)
+  stock       Int         @default(0)
+
+  isFeatured Boolean @default(false)
+  isNew      Boolean @default(false)
+
+  images    ProductImage[]
+  reviews   Review[]
+  orderItems OrderItem[]
+  cartItems  CartItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([categoryId])
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
+  alt       String?
+  order     Int     @default(0)
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rating    Int
+  comment   String?  @db.Text
+  createdAt DateTime @default(now())
+
+  @@index([productId])
+}
+
+// ---------- Cart ----------
+
+model Cart {
+  id        String     @id @default(cuid())
+  userId    String     @unique
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     CartItem[]
+  updatedAt DateTime   @updatedAt
+}
+
+model CartItem {
+  id        String  @id @default(cuid())
+  cartId    String
+  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity  Int     @default(1)
+
+  @@unique([cartId, productId])
+}
+
+// ---------- Orders ----------
+
+enum OrderStatus {
+  PENDING_PAYMENT
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELED
+}
+
+enum PaymentStatus {
+  UNPAID
+  PAID
+  FAILED
+}
+
+model Address {
+  id         String  @id @default(cuid())
+  userId     String
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fullName   String
+  phone      String
+  province   String
+  city       String
+  postalCode String
+  addressLine String @db.Text
+  isDefault  Boolean @default(false)
+  orders     Order[]
+  createdAt  DateTime @default(now())
+}
+
+model Order {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  addressId String
+  address   Address @relation(fields: [addressId], references: [id])
+
+  items OrderItem[]
+
+  subtotal       Int
+  discountAmount Int @default(0)
+  shippingCost   Int @default(0)
+  totalAmount    Int
+
+  discountCodeId String?
+  discountCode   DiscountCode? @relation(fields: [discountCodeId], references: [id])
+
+  pointsUsed   Int @default(0)
+  pointsEarned Int @default(0)
+
+  shippingMethod String @default("post")
+  status         OrderStatus   @default(PENDING_PAYMENT)
+  paymentStatus  PaymentStatus @default(UNPAID)
+
+  paymentAuthority String? // Zarinpal Authority
+  paymentRefId     String? // Zarinpal RefID after verify
+
+  loyaltyTransactions LoyaltyTransaction[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  unitPrice Int
+  totalPrice Int
+}
+
+// ---------- Discounts & Loyalty ----------
+
+enum DiscountType {
+  PERCENT
+  FIXED
+}
+
+model DiscountCode {
+  id             String       @id @default(cuid())
+  code           String       @unique
+  type           DiscountType
+  value          Int // percent (0-100) or fixed toman amount
+  minOrderAmount Int          @default(0)
+  maxUses        Int?
+  usedCount      Int          @default(0)
+  isActive       Boolean      @default(true)
+  expiresAt      DateTime?
+  createdAt      DateTime     @default(now())
+  orders         Order[]
+}
+
+enum LoyaltyTxType {
+  EARN
+  REDEEM
+}
+
+model LoyaltyTransaction {
+  id          String        @id @default(cuid())
+  userId      String
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type        LoyaltyTxType
+  points      Int
+  orderId     String?
+  order       Order?        @relation(fields: [orderId], references: [id])
+  description String?
+  createdAt   DateTime      @default(now())
+
+  @@index([userId])
+}
+
+// Singleton-style config row (id = "default")
+model LoyaltySettings {
+  id                   String @id @default("default")
+  pointsPerToman       Int    @default(100000) // 1 point per this many toman spent
+  pointValueInToman    Int    @default(1000)   // redeeming 1 point = this many toman off
+  silverThreshold      Int    @default(5000000)
+  goldThreshold         Int    @default(20000000)
+  silverDiscountPercent Int   @default(3)
+  goldDiscountPercent   Int   @default(7)
+  bronzeDiscountPercent Int   @default(0)
+  updatedAt            DateTime @updatedAt
+}
+
+// ---------- Support Chat ----------
+
+enum ConversationStatus {
+  OPEN
+  CLOSED
+}
+
+enum SenderType {
+  USER
+  ADMIN
+}
+
+model ChatConversation {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  guestName String? // for non-logged-in visitors
+  guestId   String? // cookie-based id for guests
+  status    ConversationStatus @default(OPEN)
+  messages  ChatMessage[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
+}
+
+model ChatMessage {
+  id             String     @id @default(cuid())
+  conversationId String
+  conversation   ChatConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  senderType     SenderType
+  senderId       String? // userId of admin or customer, null for guest
+  sender         User?      @relation(fields: [senderId], references: [id], onDelete: SetNull)
+  message        String     @db.Text
+  isRead         Boolean    @default(false)
+  createdAt      DateTime   @default(now())
+
+  @@index([conversationId])
+}

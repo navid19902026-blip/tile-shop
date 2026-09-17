@@ -1,0 +1,120 @@
+# کاشی و سرامیک آرمانی
+
+فروشگاه آنلاین کاشی و سرامیک، ساخته‌شده با Next.js 14 (App Router)، TypeScript، Tailwind CSS، Prisma/PostgreSQL، NextAuth.js و درگاه پرداخت زرین‌پال.
+
+## امکانات
+
+- **فروشگاه**: صفحه اصلی، لیست و فیلتر محصولات، جزئیات محصول با نظرات، سبد خرید، تسویه‌حساب، ورود/ثبت‌نام، پنل کاربری (سفارش‌ها، آدرس‌ها)
+- **باشگاه مشتریان**: امتیازدهی بر اساس خرید، سطح‌بندی (برنزی/نقره‌ای/طلایی)، تبدیل امتیاز به تخفیف، مدیریت قوانین از پنل ادمین
+- **چت پشتیبانی**: ویجت چت زنده (polling) برای کاربران مهمان و عضو، مدیریت گفتگوها در پنل ادمین
+- **پنل مدیریت**: محصولات، دسته‌بندی‌ها، سفارش‌ها، کاربران/باشگاه مشتریان، کدهای تخفیف، تنظیمات باشگاه مشتریان، گفتگوهای پشتیبانی، داشبورد آماری
+- **پرداخت**: اتصال کامل به درگاه زرین‌پال (request/verify) با پشتیبانی از حالت sandbox
+
+## پیش‌نیازها
+
+- Node.js نسخه ۱۸ یا بالاتر (ترجیحاً ۲۰+)
+- یک دیتابیس PostgreSQL — یا [محلی](https://www.postgresql.org/download/)، یا سرویس ابری مثل [Neon](https://neon.tech)، [Supabase](https://supabase.com) یا [Railway](https://railway.app)
+
+> **نیاز به نصب PostgreSQL ندارید؟** بخش «شروع سریع بدون نصب Postgres» در پایین را ببینید — یک دیتابیس محلی سبک (PGlite) برای توسعه فراهم شده است.
+
+## نصب
+
+```bash
+npm install
+cp .env.example .env
+```
+
+مقادیر `.env` را با اطلاعات خودتان پر کنید (پایین توضیح داده شده).
+
+## راه‌اندازی دیتابیس
+
+### گزینه ۱: PostgreSQL واقعی (توصیه‌شده برای production)
+
+۱. مقدار `DATABASE_URL` را در `.env` با connection string دیتابیس خود جایگزین کنید.
+۲. اجرای migration و ساخت جداول:
+
+```bash
+npx prisma migrate dev --name init
+```
+
+۳. افزودن داده‌های نمونه (چند دسته‌بندی، چند محصول، چند کاربر تستی با امتیاز باشگاه مشتریان):
+
+```bash
+npx prisma db seed
+```
+
+### گزینه ۲: شروع سریع بدون نصب Postgres (فقط برای توسعه محلی)
+
+اگر می‌خواهید بدون نصب PostgreSQL پروژه را روی سیستم خودتان امتحان کنید، یک دیتابیس محلی سبک بر پایه [PGlite](https://pglite.dev) (پستگرس کامپایل‌شده به WASM) در پروژه گنجانده شده که با پروتکل واقعی Postgres کار می‌کند:
+
+```bash
+# ترمینال ۱: دیتابیس محلی را روی postgresql://postgres:postgres@127.0.0.1:55432/postgres بالا می‌آورد
+npm run db:dev
+
+# ترمینال ۲: schema را می‌سازد (چون CLI پریزما نیاز به این دیتابیس واقعی ندارد، از اسکریپت SQL دستی استفاده می‌کند)
+# این مرحله در اولین اجرای «db:dev» به‌صورت خودکار انجام می‌شود.
+
+# سپس داده‌های نمونه را وارد کنید:
+node --env-file=.env prisma/seed.mjs
+```
+
+مقدار `DATABASE_URL` در `.env.example` از قبل روی این دیتابیس محلی تنظیم شده است. این روش فقط برای توسعه/آزمایش مناسب است، نه production.
+
+## متغیرهای محیطی
+
+فایل `.env.example` را ببینید. مهم‌ترین‌ها:
+
+| متغیر | توضیح |
+|---|---|
+| `DATABASE_URL` | connection string دیتابیس PostgreSQL |
+| `AUTH_SECRET` | کلید رمزنگاری NextAuth — با `openssl rand -base64 32` بسازید |
+| `ZARINPAL_MERCHANT_ID` | مرچنت آیدی زرین‌پال (برای تست از [sandbox زرین‌پال](https://sandbox.zarinpal.com) استفاده کنید) |
+| `ZARINPAL_SANDBOX` | `true` برای محیط تست زرین‌پال |
+| `NEXT_PUBLIC_BASE_URL` | آدرس عمومی سایت (برای callback زرین‌پال و sitemap) |
+
+## اجرای پروژه
+
+```bash
+npm run dev
+```
+
+سایت روی [http://localhost:3000](http://localhost:3000) بالا می‌آید.
+
+### حساب‌های تستی (بعد از seed)
+
+| نقش | ایمیل | رمز عبور |
+|---|---|---|
+| مدیر | admin@armani-tile.example | password123 |
+| مشتری (سطح طلایی) | ali@example.com | password123 |
+| مشتری (سطح نقره‌ای) | sara@example.com | password123 |
+| مشتری (سطح برنزی) | navid@example.com | password123 |
+
+پنل مدیریت: `/admin` — کد تخفیف نمونه: `WELCOME10` (۱۰٪ تخفیف).
+
+## ساختار پروژه
+
+```
+prisma/schema.prisma       مدل‌های دیتابیس
+prisma/seed.mjs            اسکریپت seed داده‌های نمونه
+src/app/(store)            صفحات فروشگاه (کاربر عادی)
+src/app/admin              پنل مدیریت (نیازمند نقش ADMIN)
+src/app/api                Route Handlerها (auth، چت، آپلود تصویر)
+src/app/payment            شروع و بازگشت از درگاه زرین‌پال
+src/actions                Server Actionها (فروشگاه و ادمین)
+src/components             کامپوننت‌های React
+src/lib                    توابع کمکی (prisma client، auth، zarinpal، loyalty، ...)
+```
+
+## دیپلوی
+
+برای production:
+
+1. یک دیتابیس PostgreSQL واقعی راه‌اندازی کنید و `DATABASE_URL` را تنظیم کنید.
+2. `npx prisma migrate deploy` را برای اعمال migrationها اجرا کنید.
+3. مرچنت آیدی واقعی زرین‌پال را جایگزین کنید و `ZARINPAL_SANDBOX=false` بگذارید.
+4. برای آپلود تصاویر محصول در production که فایل‌سیستم آن ephemeral است (مثل Vercel)، `src/app/api/admin/upload/route.ts` را به یک سرویس ذخیره‌سازی ابری (مثل S3 یا Cloudinary) وصل کنید — پیاده‌سازی فعلی تصاویر را روی دیسک محلی (`public/uploads`) ذخیره می‌کند که برای هاست‌های سنتی/VPS مناسب است.
+
+## محدودیت‌های شناخته‌شده
+
+- درگاه پرداخت با محیط sandbox زرین‌پال تست شده است؛ پیش از استفاده واقعی، مرچنت آیدی production را جایگزین و به‌دقت تست کنید.
+- چت پشتیبانی از polling (هر ۳ تا ۴ ثانیه) استفاده می‌کند، نه WebSocket — برای اکثر فروشگاه‌ها کافی است، اما برای ترافیک بسیار بالا می‌توان به WebSocket/SSE ارتقا داد.
