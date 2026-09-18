@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { Calculator } from "lucide-react";
-import { formatToman, PRODUCT_UNIT_LABELS, toPersianDigits } from "@/lib/utils";
+import { useLocale, useTranslations } from "next-intl";
+import { formatPrice, formatNumber } from "@/lib/utils";
 import { useCartStore } from "@/lib/cart-store";
 import { toast } from "sonner";
 
@@ -14,6 +15,8 @@ export default function CoverageCalculator({
 }: {
   product: { productId: string; name: string; slug: string; image: string | null; price: number; unit: string; stock: number };
 }) {
+  const t = useTranslations();
+  const locale = useLocale();
   const [length, setLength] = useState("");
   const [width, setWidth] = useState("");
   const addItem = useCartStore((s) => s.addItem);
@@ -24,35 +27,36 @@ export default function CoverageCalculator({
   const roundedSqm = Math.ceil(withWaste);
   const estimatedPrice = roundedSqm * product.price;
   const hasResult = area > 0;
+  const sqmLabel = t("units.SQUARE_METER");
 
   return (
     <div className="rounded-2xl border border-slate-100 p-4">
       <h3 className="mb-3 flex items-center gap-2 text-sm font-bold text-slate-800">
         <Calculator size={16} className="text-brand-500" />
-        محاسبه‌گر متراژ مورد نیاز
+        {t("product.calculator.title")}
       </h3>
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="mb-1 block text-xs text-slate-500">طول فضا (متر)</label>
+          <label className="mb-1 block text-xs text-slate-500">{t("product.calculator.length")}</label>
           <input
             type="number"
             min="0"
             step="0.1"
             value={length}
             onChange={(e) => setLength(e.target.value)}
-            placeholder="مثلاً ۴"
+            placeholder={locale === "fa" ? "مثلاً ۴" : "e.g. 4"}
             className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400"
           />
         </div>
         <div>
-          <label className="mb-1 block text-xs text-slate-500">عرض فضا (متر)</label>
+          <label className="mb-1 block text-xs text-slate-500">{t("product.calculator.width")}</label>
           <input
             type="number"
             min="0"
             step="0.1"
             value={width}
             onChange={(e) => setWidth(e.target.value)}
-            placeholder="مثلاً ۳"
+            placeholder={locale === "fa" ? "مثلاً ۳" : "e.g. 3"}
             className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400"
           />
         </div>
@@ -60,29 +64,30 @@ export default function CoverageCalculator({
 
       {hasResult && (
         <div className="mt-4 space-y-2 rounded-xl bg-slate-50 p-3 text-sm">
-          <Row label="مساحت فضا" value={`${toPersianDigits(area.toFixed(1))} متر مربع`} />
-          <Row label={`با احتساب ${toPersianDigits(WASTE_PERCENT)}٪ دورریز`} value={`${toPersianDigits(roundedSqm)} متر مربع`} />
+          <Row label={t("product.calculator.area")} value={`${formatNumber(area.toFixed(1), locale)} ${sqmLabel}`} />
+          <Row
+            label={t("product.calculator.withWaste", { percent: formatNumber(WASTE_PERCENT, locale) })}
+            value={`${formatNumber(roundedSqm, locale)} ${sqmLabel}`}
+          />
           {product.unit === "CARTON" || product.unit === "SQUARE_METER" ? (
-            <Row label="تعداد کارتن تقریبی" value={`${toPersianDigits(cartons)} کارتن`} />
+            <Row label={t("product.calculator.cartons")} value={formatNumber(cartons, locale)} />
           ) : null}
           <div className="border-t border-slate-200 pt-2">
-            <Row label="هزینه تقریبی" value={formatToman(estimatedPrice)} bold />
+            <Row label={t("product.calculator.estimatedPrice")} value={formatPrice(estimatedPrice, locale)} bold />
           </div>
           <button
             onClick={() => {
               addItem(product, roundedSqm);
-              toast.success(`${toPersianDigits(roundedSqm)} ${PRODUCT_UNIT_LABELS[product.unit] ?? ""} به سبد خرید اضافه شد`);
+              toast.success(`${formatNumber(roundedSqm, locale)} ${sqmLabel} — ${t("product.addedToCart")}`);
             }}
             disabled={product.stock <= 0}
             className="mt-2 w-full rounded-xl bg-brand-500 py-2.5 text-sm font-bold text-white transition hover:bg-brand-600 disabled:opacity-50"
           >
-            افزودن {toPersianDigits(roundedSqm)} متر به سبد خرید
+            {t("product.calculator.addToCartWithAmount", { amount: formatNumber(roundedSqm, locale) })}
           </button>
         </div>
       )}
-      <p className="mt-2 text-[11px] leading-5 text-slate-400">
-        این محاسبه تقریبی است. برای اندازه‌گیری دقیق و مشاوره رایگان با پشتیبانی آنلاین در تماس باشید.
-      </p>
+      <p className="mt-2 text-[11px] leading-5 text-slate-400">{t("product.calculator.note")}</p>
     </div>
   );
 }

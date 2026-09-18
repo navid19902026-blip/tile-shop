@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { useRouter, Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { UserPlus } from "lucide-react";
 import { registerUser, type RegisterFormState } from "@/actions/auth";
@@ -12,13 +12,14 @@ import { registerUser, type RegisterFormState } from "@/actions/auth";
 const initialState: RegisterFormState = {};
 
 export default function RegisterPage() {
+  const t = useTranslations("auth");
   const router = useRouter();
   const [state, formAction] = useFormState(registerUser, initialState);
 
   useEffect(() => {
     if (state.error) toast.error(state.error);
     if (state.success) {
-      toast.success("ثبت‌نام با موفقیت انجام شد");
+      toast.success(t("registerSuccess"));
       const form = document.getElementById("register-form") as HTMLFormElement | null;
       const identifier = (form?.elements.namedItem("identifier") as HTMLInputElement)?.value;
       const password = (form?.elements.namedItem("password") as HTMLInputElement)?.value;
@@ -31,7 +32,7 @@ export default function RegisterPage() {
         router.push("/auth/login");
       }
     }
-  }, [state, router]);
+  }, [state, router, t]);
 
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-4 py-12">
@@ -39,21 +40,21 @@ export default function RegisterPage() {
         <span className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-500 text-white">
           <UserPlus size={22} />
         </span>
-        <h1 className="text-xl font-extrabold text-slate-900">ساخت حساب کاربری</h1>
-        <p className="mt-1 text-sm text-slate-400">برای خرید و پیگیری سفارش‌ها ثبت‌نام کنید</p>
+        <h1 className="text-xl font-extrabold text-slate-900">{t("registerTitle")}</h1>
+        <p className="mt-1 text-sm text-slate-400">{t("registerSubtitle")}</p>
       </div>
 
       <form id="register-form" action={formAction} className="space-y-4 rounded-2xl border border-slate-100 p-6">
-        <Field label="نام و نام خانوادگی" name="name" type="text" />
-        <Field label="شماره موبایل یا ایمیل" name="identifier" type="text" />
-        <Field label="رمز عبور" name="password" type="password" />
+        <Field label={t("fullName")} name="name" type="text" />
+        <Field label={t("identifier")} name="identifier" type="text" />
+        <Field label={t("password")} name="password" type="password" />
         <SubmitButton />
       </form>
 
       <p className="mt-4 text-center text-sm text-slate-500">
-        قبلاً ثبت‌نام کرده‌اید؟{" "}
+        {t("haveAccount")}{" "}
         <Link href="/auth/login" className="font-bold text-brand-600 hover:underline">
-          وارد شوید
+          {t("loginLink")}
         </Link>
       </p>
     </div>
@@ -61,6 +62,7 @@ export default function RegisterPage() {
 }
 
 function SubmitButton() {
+  const t = useTranslations("auth");
   const { pending } = useFormStatus();
   return (
     <button
@@ -68,7 +70,7 @@ function SubmitButton() {
       disabled={pending}
       className="w-full rounded-xl bg-brand-500 py-3 text-sm font-bold text-white transition hover:bg-brand-600 disabled:opacity-60"
     >
-      {pending ? "در حال ثبت‌نام..." : "ثبت‌نام"}
+      {pending ? t("registering") : t("registerButton")}
     </button>
   );
 }

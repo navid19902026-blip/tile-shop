@@ -1,0 +1,239 @@
+{
+  "nav": {
+    "brand": "Parsian Ceram",
+    "allProducts": "Bütün məhsullar",
+    "brands": "Brendlər",
+    "searchPlaceholder": "Kafel, keramika, brend axtarın...",
+    "cart": "Səbət",
+    "login": "Giriş / Qeydiyyat",
+    "myOrders": "Sifarişlərim",
+    "myAddresses": "Ünvanlarım",
+    "loyaltyClub": "Sadiqlik klubu",
+    "adminPanel": "İdarə paneli",
+    "logout": "Hesabdan çıxış",
+    "menu": "Menyu",
+    "language": "Dil"
+  },
+  "categories": {
+    "wall-tile": "Divar kafeli",
+    "floor-tile": "Döşəmə kafeli",
+    "ceramic": "Keramika",
+    "porcelain": "Farfor"
+  },
+  "units": {
+    "SQUARE_METER": "kvadratmetr",
+    "CARTON": "karton",
+    "PIECE": "ədəd"
+  },
+  "badges": {
+    "new": "Yeni",
+    "featured": "Çox satılan",
+    "outOfStock": "Stokda yoxdur"
+  },
+  "footer": {
+    "description": "Divar kafeli, döşəmə kafeli, keramika və farfor növlərinin yüksək keyfiyyətli təchizatçısı, bütün ölkəyə çatdırılma ilə.",
+    "quickLinks": "Sürətli keçidlər",
+    "categories": "Məhsul kateqoriyaları",
+    "contact": "Bizimlə əlaqə",
+    "trackOrder": "Sifarişi izlə",
+    "rights": "Bütün hüquqlar Parsian Ceram mağazasına məxsusdur."
+  },
+  "home": {
+    "hero": {
+      "mainEyebrow": "Bütün ölkəyə çatdırılma və Qafqaza ixracat",
+      "mainTitle": "Parsian Ceram",
+      "mainDescription": "Divar kafeli, döşəmə kafeli, keramika və farfor növlərinin peşəkar onlayn mağazası — orijinallıq zəmanəti və pulsuz məsləhət ilə.",
+      "mainCta": "Məhsullara baxın",
+      "brandsEyebrow": "Rəsmi nümayəndəlik",
+      "brandsTitle": "İranın 10 aparıcı kafel və keramika brendi, bir dam altında",
+      "brandsDescription": "Alvand, Təbriz, Mərcan, Persepolis, Nilu, Sina, Goldis, Novin Ceram, Pasarqad və Tak Ceram; bütün məhsullar orijinallıq zəmanəti ilə.",
+      "brandsCta": "Brendlərə baxın",
+      "loyaltyEyebrow": "Sadiqlik klubu",
+      "loyaltyTitle": "Hər alışda bal qazanın və xüsusi endirim əldə edin",
+      "loyaltyDescription": "Sadiqlik klubunun qızıl səviyyə üzvləri hər sifarişdə avtomatik 7% endirim əldə edirlər.",
+      "loyaltyCta": "Sadiqlik klubuna üzv olun"
+    },
+    "stats": {
+      "brands": "Etibarlı brend",
+      "products": "Müxtəlif məhsul",
+      "exportTo": "İxracat",
+      "exportRegion": "Qafqaz",
+      "authenticity": "Orijinallıq"
+    },
+    "features": {
+      "authenticity": "Orijinallıq zəmanəti",
+      "authenticityDesc": "100% orijinal",
+      "shipping": "Sürətli çatdırılma",
+      "shippingDesc": "Bütün ölkəyə",
+      "loyalty": "Sadiqlik klubu",
+      "loyaltyDesc": "Endirim və bal",
+      "support": "Onlayn dəstək",
+      "supportDesc": "Sürətli cavab"
+    },
+    "promo": {
+      "badge": "Payız kampaniyası",
+      "title": "İranın 10 aparıcı kafel və keramika brendinin rəsmi nümayəndəliyi, bir dam altında",
+      "description": "Sadiqlik klubuna üzv olaraq növbəti alışınızda 7%-ə qədər xüsusi endirim əldə edin.",
+      "cta": "Bütün məhsullara baxın"
+    },
+    "categoriesTitle": "Məhsul kateqoriyaları",
+    "brandsTitle": "Etibarlı brendlər",
+    "featuredTitle": "Ən çox satılan məhsullar",
+    "newestTitle": "Ən yeni məhsullar",
+    "viewAll": "Hamısına bax",
+    "emptyState": "Hələ məhsul əlavə edilməyib. İdarə panelindən məhsul əlavə edin."
+  },
+  "product": {
+    "addToCart": "Səbətə əlavə et",
+    "addedToCart": "Səbətə əlavə edildi",
+    "outOfStock": "Stokda yoxdur",
+    "stock": "Stok",
+    "perUnit": "hər",
+    "specs": "Texniki xüsusiyyətlər",
+    "description": "Məhsul haqqında",
+    "reviews": "İstifadəçi rəyləri",
+    "reviewsCount": "{count} rəy",
+    "anonymousUser": "İstifadəçi",
+    "noReviews": "Bu məhsul üçün hələ rəy yazılmayıb.",
+    "noRatingYet": "Hələ rəy yoxdur",
+    "relatedProducts": "Oxşar məhsullar",
+    "newReview": "Yeni rəy yaz",
+    "shipping": "Bütün ölkəyə çatdırılma",
+    "authenticity": "Orijinallıq zəmanəti",
+    "brand": "Brend",
+    "size": "Ölçü",
+    "color": "Rəng",
+    "material": "Material",
+    "usage": "İstifadə",
+    "antiSlip": "Sürüşməyə qarşı",
+    "yes": "Var",
+    "no": "Yoxdur",
+    "calculator": {
+      "title": "Lazımi sahə kalkulyatoru",
+      "length": "Sahənin uzunluğu (metr)",
+      "width": "Sahənin eni (metr)",
+      "area": "Sahə",
+      "withWaste": "{percent}% israf nəzərə alınmaqla",
+      "cartons": "Təxmini karton sayı",
+      "estimatedPrice": "Təxmini qiymət",
+      "addToCartWithAmount": "{amount} m² səbətə əlavə et",
+      "note": "Bu hesablama təxminidir. Dəqiq ölçmə və pulsuz məsləhət üçün onlayn dəstəklə əlaqə saxlayın."
+    }
+  },
+  "products": {
+    "title": "Bütün məhsullar",
+    "searchResultsFor": "«{query}» üçün axtarış nəticələri",
+    "resultsCount": "{count} məhsul tapıldı",
+    "sort": {
+      "newest": "Ən yeni",
+      "popular": "Ən populyar",
+      "priceAsc": "Ən ucuz",
+      "priceDesc": "Ən bahalı"
+    },
+    "filters": {
+      "brand": "Brend",
+      "size": "Ölçü",
+      "color": "Rəng",
+      "feature": "Xüsusiyyət",
+      "antiSlip": "Sürüşməyə qarşı",
+      "priceRange": "Qiymət aralığı (tümən)",
+      "from": "Min",
+      "to": "Maks",
+      "clearAll": "Bütün filtrləri sil",
+      "toggle": "Filtrlər"
+    },
+    "noResults": "Bu xüsusiyyətlərə uyğun məhsul tapılmadı."
+  },
+  "cart": {
+    "title": "Səbət",
+    "empty": "Səbətiniz boşdur",
+    "emptyDesc": "İstədiyiniz məhsulları səbətə əlavə edin.",
+    "browseProducts": "Məhsullara baxın",
+    "orderSummary": "Sifariş xülasəsi",
+    "subtotal": "Cəmi",
+    "shippingNote": "Çatdırılma haqqı növbəti addımda hesablanacaq",
+    "checkout": "Alış prosesinə davam et",
+    "remove": "Sil"
+  },
+  "checkout": {
+    "title": "Sifarişin rəsmiləşdirilməsi",
+    "shippingAddress": "Çatdırılma ünvanı",
+    "noAddress": "Ünvan qeydə alınmayıb. Ünvanlar səhifəsindən ünvan əlavə edin.",
+    "shippingMethod": "Çatdırılma üsulu",
+    "postExpress": "Sürətli poçt",
+    "motorCourier": "Motosikletli kuryer (yalnız Tehran)",
+    "freeShippingNote": "{amount}-dan yuxarı sifarişlər pulsuz çatdırılır.",
+    "discountCode": "Endirim kodu",
+    "discountCodePlaceholder": "Endirim kodunu daxil edin",
+    "loyaltyClub": "Sadiqlik klubu",
+    "usePoints": "{points} bal istifadə et ({amount} endirim)",
+    "tierDiscountNote": "Siz {tier} səviyyə müştərisiniz və {percent}% xüsusi endirim əldə edirsiniz.",
+    "summary": "Sifariş xülasəsi",
+    "items": "Məhsulların cəmi",
+    "discount": "Endirim",
+    "shippingCost": "Çatdırılma haqqı",
+    "free": "Pulsuz",
+    "total": "Ödəniləcək məbləğ",
+    "pay": "Ödə və sifarişi tamamla",
+    "selectAddressError": "Zəhmət olmasa bir ünvan seçin",
+    "orderError": "Sifariş qeydə alınarkən xəta baş verdi"
+  },
+  "tiers": {
+    "BRONZE": "Bürünc",
+    "SILVER": "Gümüş",
+    "GOLD": "Qızıl"
+  },
+  "auth": {
+    "loginTitle": "Hesaba giriş",
+    "loginSubtitle": "Telefon nömrəsi və ya e-poçt ilə daxil olun",
+    "identifier": "Telefon nömrəsi və ya e-poçt",
+    "password": "Şifrə",
+    "loginButton": "Giriş",
+    "loggingIn": "Giriş edilir...",
+    "noAccount": "Hesabınız yoxdur?",
+    "registerLink": "Qeydiyyatdan keçin",
+    "registerTitle": "Hesab yaradın",
+    "registerSubtitle": "Alış-veriş etmək və sifarişləri izləmək üçün qeydiyyatdan keçin",
+    "fullName": "Ad və soyad",
+    "registerButton": "Qeydiyyat",
+    "registering": "Qeydiyyat edilir...",
+    "haveAccount": "Artıq qeydiyyatdan keçmisiniz?",
+    "loginLink": "Daxil olun",
+    "wrongCredentials": "Telefon nömrəsi/e-poçt və ya şifrə yanlışdır",
+    "welcome": "Xoş gəlmisiniz",
+    "registerSuccess": "Qeydiyyat uğurla tamamlandı"
+  },
+  "brandsPage": {
+    "title": "Etibarlı kafel və keramika brendləri",
+    "subtitle": "Parsian Ceram mağazası İranın aparıcı kafel və keramika istehsalçılarının rəsmi nümayəndəsidir; Qafqaz və Gürcüstan da daxil olmaqla regional bazarlara uzun illik istehsal və ixrac təcrübəsi olan brendlər.",
+    "productsAvailable": "{count} məhsul mövcuddur",
+    "from": "dan",
+    "viewProducts": "{brand} məhsullarına baxın"
+  },
+  "review": {
+    "loginRequired": "Rəy yazmaq üçün əvvəlcə hesabınıza daxil olun.",
+    "placeholder": "Bu məhsul haqqında rəyiniz...",
+    "submit": "Rəyi göndər",
+    "submitting": "Göndərilir...",
+    "success": "Rəyiniz uğurla göndərildi",
+    "ratingLabel": "Reytinq {n}"
+  },
+  "payment": {
+    "successTitle": "Ödəniş uğurla tamamlandı",
+    "successDesc": "Sifarişiniz qeydə alındı və işlənir.",
+    "viewOrder": "Sifarişə bax",
+    "canceledTitle": "Ödəniş ləğv edildi",
+    "canceledDesc": "İstəsəniz yenidən cəhd edə bilərsiniz.",
+    "retry": "Yenidən cəhd et",
+    "backToCart": "Səbətə qayıt",
+    "errorTitle": "Ödəniş xətası",
+    "errorDesc": "Ödəniş sistemi ilə əlaqədə problem yarandı."
+  },
+  "chat": {
+    "title": "Onlayn dəstək",
+    "greeting": "Salam! Sualınız var? Buradan soruşa bilərsiniz.",
+    "placeholder": "Mesajınızı yazın...",
+    "close": "Bağla",
+    "widgetLabel": "Dəstək çatı"
+  }
+}

@@ -25,6 +25,25 @@ export function formatToman(amount: number) {
   return toPersianDigits(amount.toLocaleString("en-US")) + " تومان";
 }
 
+const CURRENCY_LABEL_BY_LOCALE: Record<string, string> = {
+  fa: "تومان",
+  az: "tümen",
+  en: "Toman",
+  ka: "თუმანი",
+};
+
+/** Locale-aware price formatter for pages wired up to next-intl (fa keeps Persian digits, others use Western digits). */
+export function formatPrice(amount: number, locale: string) {
+  const digits = amount.toLocaleString("en-US");
+  const localizedDigits = locale === "fa" ? toPersianDigits(digits) : digits;
+  return `${localizedDigits} ${CURRENCY_LABEL_BY_LOCALE[locale] ?? CURRENCY_LABEL_BY_LOCALE.en}`;
+}
+
+/** Locale-aware digit formatter (fa keeps Persian digits, others use Western digits). */
+export function formatNumber(value: number | string, locale: string) {
+  return locale === "fa" ? toPersianDigits(value) : String(value);
+}
+
 export function slugify(input: string) {
   return input
     .trim()

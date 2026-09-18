@@ -1,0 +1,239 @@
+{
+  "nav": {
+    "brand": "Parsian Ceram",
+    "allProducts": "All Products",
+    "brands": "Brands",
+    "searchPlaceholder": "Search tiles, ceramics, brands...",
+    "cart": "Cart",
+    "login": "Login / Sign up",
+    "myOrders": "My Orders",
+    "myAddresses": "My Addresses",
+    "loyaltyClub": "Loyalty Club",
+    "adminPanel": "Admin Panel",
+    "logout": "Log out",
+    "menu": "Menu",
+    "language": "Language"
+  },
+  "categories": {
+    "wall-tile": "Wall Tile",
+    "floor-tile": "Floor Tile",
+    "ceramic": "Ceramic",
+    "porcelain": "Porcelain"
+  },
+  "units": {
+    "SQUARE_METER": "sq. meter",
+    "CARTON": "carton",
+    "PIECE": "piece"
+  },
+  "badges": {
+    "new": "New",
+    "featured": "Best Seller",
+    "outOfStock": "Out of Stock"
+  },
+  "footer": {
+    "description": "A premium supplier of wall tile, floor tile, ceramic and porcelain, shipping nationwide.",
+    "quickLinks": "Quick Links",
+    "categories": "Product Categories",
+    "contact": "Contact Us",
+    "trackOrder": "Track Order",
+    "rights": "All rights reserved to Parsian Ceram."
+  },
+  "home": {
+    "hero": {
+      "mainEyebrow": "Nationwide shipping and export to the Caucasus",
+      "mainTitle": "Parsian Ceram",
+      "mainDescription": "Your specialist online store for wall tile, floor tile, ceramic and porcelain — with an authenticity guarantee and free consultation.",
+      "mainCta": "Browse Products",
+      "brandsEyebrow": "Official Representative",
+      "brandsTitle": "Iran's top 10 tile & ceramic brands, under one roof",
+      "brandsDescription": "Alvand, Tabriz, Marjan, Persepolis, Nilou, Sina, Goldis, Novin Ceram, Pasargad and Tak Ceram — all products backed by an authenticity guarantee.",
+      "brandsCta": "View Brands",
+      "loyaltyEyebrow": "Loyalty Club",
+      "loyaltyTitle": "Earn points with every purchase and get special discounts",
+      "loyaltyDescription": "Gold-tier loyalty members get an automatic 7% discount on every order.",
+      "loyaltyCta": "Join the Loyalty Club"
+    },
+    "stats": {
+      "brands": "Trusted Brands",
+      "products": "Products",
+      "exportTo": "Exporting to",
+      "exportRegion": "Caucasus",
+      "authenticity": "Authenticity"
+    },
+    "features": {
+      "authenticity": "Authenticity Guarantee",
+      "authenticityDesc": "100% Genuine",
+      "shipping": "Fast Shipping",
+      "shippingDesc": "Nationwide",
+      "loyalty": "Loyalty Club",
+      "loyaltyDesc": "Discounts & Points",
+      "support": "Online Support",
+      "supportDesc": "Quick Response"
+    },
+    "promo": {
+      "badge": "Autumn Sale",
+      "title": "Official representative of Iran's top 10 tile & ceramic brands, under one roof",
+      "description": "Join the Loyalty Club and get up to 7% special discount on your next purchase.",
+      "cta": "Browse All Products"
+    },
+    "categoriesTitle": "Product Categories",
+    "brandsTitle": "Trusted Brands",
+    "featuredTitle": "Best Sellers",
+    "newestTitle": "Newest Products",
+    "viewAll": "View All",
+    "emptyState": "No products yet. Add products from the admin panel."
+  },
+  "product": {
+    "addToCart": "Add to Cart",
+    "addedToCart": "Added to cart",
+    "outOfStock": "Out of Stock",
+    "stock": "Stock",
+    "perUnit": "per",
+    "specs": "Specifications",
+    "description": "Product Description",
+    "reviews": "Customer Reviews",
+    "reviewsCount": "{count} reviews",
+    "anonymousUser": "User",
+    "noReviews": "No reviews yet for this product.",
+    "noRatingYet": "No reviews yet",
+    "relatedProducts": "Related Products",
+    "newReview": "Write a Review",
+    "shipping": "Nationwide Shipping",
+    "authenticity": "Authenticity Guarantee",
+    "brand": "Brand",
+    "size": "Size",
+    "color": "Color",
+    "material": "Material",
+    "usage": "Usage",
+    "antiSlip": "Anti-Slip",
+    "yes": "Yes",
+    "no": "No",
+    "calculator": {
+      "title": "Coverage Calculator",
+      "length": "Room Length (m)",
+      "width": "Room Width (m)",
+      "area": "Area",
+      "withWaste": "Including {percent}% waste allowance",
+      "cartons": "Estimated Cartons",
+      "estimatedPrice": "Estimated Cost",
+      "addToCartWithAmount": "Add {amount} m² to Cart",
+      "note": "This is an approximate estimate. Contact online support for precise measurement and free consultation."
+    }
+  },
+  "products": {
+    "title": "All Products",
+    "searchResultsFor": "Search results for \"{query}\"",
+    "resultsCount": "{count} products found",
+    "sort": {
+      "newest": "Newest",
+      "popular": "Most Popular",
+      "priceAsc": "Price: Low to High",
+      "priceDesc": "Price: High to Low"
+    },
+    "filters": {
+      "brand": "Brand",
+      "size": "Size",
+      "color": "Color",
+      "feature": "Feature",
+      "antiSlip": "Anti-Slip",
+      "priceRange": "Price Range (Toman)",
+      "from": "Min",
+      "to": "Max",
+      "clearAll": "Clear All Filters",
+      "toggle": "Filters"
+    },
+    "noResults": "No products match these filters."
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty",
+    "emptyDesc": "Add products you're interested in to your cart.",
+    "browseProducts": "Browse Products",
+    "orderSummary": "Order Summary",
+    "subtotal": "Subtotal",
+    "shippingNote": "Shipping cost will be calculated in the next step",
+    "checkout": "Proceed to Checkout",
+    "remove": "Remove"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "shippingAddress": "Shipping Address",
+    "noAddress": "No address on file. Add one from the Addresses page.",
+    "shippingMethod": "Shipping Method",
+    "postExpress": "Express Post",
+    "motorCourier": "Motorcycle Courier (Tehran only)",
+    "freeShippingNote": "Orders over {amount} ship free.",
+    "discountCode": "Discount Code",
+    "discountCodePlaceholder": "Enter discount code",
+    "loyaltyClub": "Loyalty Club",
+    "usePoints": "Use {points} points ({amount} discount)",
+    "tierDiscountNote": "You are a {tier}-tier customer and get {percent}% special discount.",
+    "summary": "Order Summary",
+    "items": "Items Subtotal",
+    "discount": "Discount",
+    "shippingCost": "Shipping Cost",
+    "free": "Free",
+    "total": "Total Due",
+    "pay": "Pay & Place Order",
+    "selectAddressError": "Please select an address",
+    "orderError": "An error occurred while placing the order"
+  },
+  "tiers": {
+    "BRONZE": "Bronze",
+    "SILVER": "Silver",
+    "GOLD": "Gold"
+  },
+  "auth": {
+    "loginTitle": "Sign in to Your Account",
+    "loginSubtitle": "Sign in with your phone number or email",
+    "identifier": "Phone Number or Email",
+    "password": "Password",
+    "loginButton": "Sign In",
+    "loggingIn": "Signing in...",
+    "noAccount": "Don't have an account?",
+    "registerLink": "Sign up",
+    "registerTitle": "Create Account",
+    "registerSubtitle": "Sign up to shop and track your orders",
+    "fullName": "Full Name",
+    "registerButton": "Sign Up",
+    "registering": "Signing up...",
+    "haveAccount": "Already have an account?",
+    "loginLink": "Sign in",
+    "wrongCredentials": "Incorrect phone number/email or password",
+    "welcome": "Welcome",
+    "registerSuccess": "Registration completed successfully"
+  },
+  "brandsPage": {
+    "title": "Trusted Tile & Ceramic Brands",
+    "subtitle": "Parsian Ceram is the official representative of Iran's leading tile and ceramic manufacturers — brands with a long history of production and export to regional markets including the Caucasus and Georgia.",
+    "productsAvailable": "{count} products available",
+    "from": "from",
+    "viewProducts": "View {brand} Products"
+  },
+  "review": {
+    "loginRequired": "Please sign in to your account to write a review.",
+    "placeholder": "Your thoughts on this product...",
+    "submit": "Submit Review",
+    "submitting": "Submitting...",
+    "success": "Your review was submitted successfully",
+    "ratingLabel": "Rating {n}"
+  },
+  "payment": {
+    "successTitle": "Payment Successful",
+    "successDesc": "Your order has been placed and is being processed.",
+    "viewOrder": "View Order",
+    "canceledTitle": "Payment Canceled",
+    "canceledDesc": "You can try again if you'd like.",
+    "retry": "Try Again",
+    "backToCart": "Back to Cart",
+    "errorTitle": "Payment Error",
+    "errorDesc": "A problem occurred connecting to the payment gateway."
+  },
+  "chat": {
+    "title": "Online Support",
+    "greeting": "Hi! Have a question? Ask right here.",
+    "placeholder": "Write your message...",
+    "close": "Close",
+    "widgetLabel": "Support Chat"
+  }
+}

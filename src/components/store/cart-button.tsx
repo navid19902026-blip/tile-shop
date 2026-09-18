@@ -1,11 +1,13 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/lib/cart-store";
 import { useEffect, useState } from "react";
 
 export default function CartButton() {
+  const t = useTranslations("nav");
   const totalItems = useCartStore((s) => s.totalItems());
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -14,7 +16,7 @@ export default function CartButton() {
     <Link
       href="/cart"
       className="relative flex items-center justify-center rounded-full p-2 text-slate-700 transition hover:bg-brand-50 hover:text-brand-600"
-      aria-label="سبد خرید"
+      aria-label={t("cart")}
     >
       <ShoppingCart size={22} />
       {mounted && totalItems > 0 && (

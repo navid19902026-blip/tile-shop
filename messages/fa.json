@@ -1,0 +1,239 @@
+{
+  "nav": {
+    "brand": "Parsian Ceram",
+    "allProducts": "همه محصولات",
+    "brands": "برندها",
+    "searchPlaceholder": "جستجوی کاشی، سرامیک، برند...",
+    "cart": "سبد خرید",
+    "login": "ورود / ثبت‌نام",
+    "myOrders": "سفارش‌های من",
+    "myAddresses": "آدرس‌های من",
+    "loyaltyClub": "باشگاه مشتریان",
+    "adminPanel": "پنل مدیریت",
+    "logout": "خروج از حساب",
+    "menu": "منو",
+    "language": "زبان"
+  },
+  "categories": {
+    "wall-tile": "کاشی دیوار",
+    "floor-tile": "کاشی کف",
+    "ceramic": "سرامیک",
+    "porcelain": "پرسلان"
+  },
+  "units": {
+    "SQUARE_METER": "متر مربع",
+    "CARTON": "کارتن",
+    "PIECE": "عدد"
+  },
+  "badges": {
+    "new": "جدید",
+    "featured": "پرفروش",
+    "outOfStock": "ناموجود"
+  },
+  "footer": {
+    "description": "عرضه‌کننده انواع کاشی دیوار، کاشی کف، سرامیک و پرسلان با کیفیت برتر و ارسال به سراسر کشور.",
+    "quickLinks": "دسترسی سریع",
+    "categories": "دسته‌بندی محصولات",
+    "contact": "تماس با ما",
+    "trackOrder": "پیگیری سفارش",
+    "rights": "تمامی حقوق برای فروشگاه Parsian Ceram محفوظ است."
+  },
+  "home": {
+    "hero": {
+      "mainEyebrow": "ارسال به سراسر کشور و صادرات به قفقاز",
+      "mainTitle": "Parsian Ceram",
+      "mainDescription": "مرجع تخصصی خرید آنلاین انواع کاشی دیوار، کاشی کف، سرامیک و پرسلان با گارانتی اصالت کالا و مشاوره رایگان.",
+      "mainCta": "مشاهده محصولات",
+      "brandsEyebrow": "نمایندگی رسمی",
+      "brandsTitle": "۱۰ برند برتر کاشی و سرامیک ایران، زیر یک سقف",
+      "brandsDescription": "الوند، تبریز، مرجان، پرسپولیس، نیلو، سینا، گلدیس، نوین‌سرام، پاسارگاد و تک‌سرام؛ تمام محصولات با ضمانت اصالت کالا.",
+      "brandsCta": "مشاهده برندها",
+      "loyaltyEyebrow": "باشگاه مشتریان",
+      "loyaltyTitle": "با هر خرید، امتیاز بگیرید و تخفیف ویژه دریافت کنید",
+      "loyaltyDescription": "اعضای سطح طلایی باشگاه مشتریان تا ۷٪ تخفیف خودکار روی هر سفارش دریافت می‌کنند.",
+      "loyaltyCta": "عضویت در باشگاه مشتریان"
+    },
+    "stats": {
+      "brands": "برند معتبر",
+      "products": "محصول متنوع",
+      "exportTo": "صادرات به",
+      "exportRegion": "قفقاز",
+      "authenticity": "اصالت کالا"
+    },
+    "features": {
+      "authenticity": "ضمانت اصالت کالا",
+      "authenticityDesc": "۱۰۰٪ اورجینال",
+      "shipping": "ارسال سریع",
+      "shippingDesc": "به سراسر کشور",
+      "loyalty": "باشگاه مشتریان",
+      "loyaltyDesc": "تخفیف و امتیاز",
+      "support": "پشتیبانی آنلاین",
+      "supportDesc": "پاسخ‌گویی سریع"
+    },
+    "promo": {
+      "badge": "جشنواره پاییزه",
+      "title": "نمایندگی رسمی ۱۰ برند برتر کاشی و سرامیک ایران، زیر یک سقف",
+      "description": "با عضویت در باشگاه مشتریان، تا ۷٪ تخفیف ویژه روی خرید بعدی دریافت کنید.",
+      "cta": "مشاهده همه محصولات"
+    },
+    "categoriesTitle": "دسته‌بندی محصولات",
+    "brandsTitle": "برندهای معتبر",
+    "featuredTitle": "محصولات پرفروش",
+    "newestTitle": "جدیدترین محصولات",
+    "viewAll": "مشاهده همه",
+    "emptyState": "هنوز محصولی ثبت نشده است. از پنل مدیریت محصولات را اضافه کنید."
+  },
+  "product": {
+    "addToCart": "افزودن به سبد خرید",
+    "addedToCart": "به سبد خرید اضافه شد",
+    "outOfStock": "ناموجود",
+    "stock": "موجودی",
+    "perUnit": "به ازای هر",
+    "specs": "مشخصات فنی",
+    "description": "توضیحات محصول",
+    "reviews": "نظرات کاربران",
+    "reviewsCount": "{count} نظر",
+    "anonymousUser": "کاربر",
+    "noReviews": "هنوز نظری برای این محصول ثبت نشده است.",
+    "noRatingYet": "هنوز نظری ثبت نشده است",
+    "relatedProducts": "محصولات مرتبط",
+    "newReview": "ثبت نظر جدید",
+    "shipping": "ارسال به سراسر کشور",
+    "authenticity": "ضمانت اصالت کالا",
+    "brand": "برند",
+    "size": "سایز",
+    "color": "رنگ",
+    "material": "جنس",
+    "usage": "کاربرد",
+    "antiSlip": "ضدلغزش",
+    "yes": "دارد",
+    "no": "ندارد",
+    "calculator": {
+      "title": "محاسبه‌گر متراژ مورد نیاز",
+      "length": "طول فضا (متر)",
+      "width": "عرض فضا (متر)",
+      "area": "مساحت فضا",
+      "withWaste": "با احتساب {percent}٪ دورریز",
+      "cartons": "تعداد کارتن تقریبی",
+      "estimatedPrice": "هزینه تقریبی",
+      "addToCartWithAmount": "افزودن {amount} متر به سبد خرید",
+      "note": "این محاسبه تقریبی است. برای اندازه‌گیری دقیق و مشاوره رایگان با پشتیبانی آنلاین در تماس باشید."
+    }
+  },
+  "products": {
+    "title": "همه محصولات",
+    "searchResultsFor": "نتایج جستجو برای «{query}»",
+    "resultsCount": "{count} محصول یافت شد",
+    "sort": {
+      "newest": "جدیدترین",
+      "popular": "محبوب‌ترین",
+      "priceAsc": "ارزان‌ترین",
+      "priceDesc": "گران‌ترین"
+    },
+    "filters": {
+      "brand": "برند",
+      "size": "سایز",
+      "color": "رنگ",
+      "feature": "ویژگی",
+      "antiSlip": "ضدلغزش",
+      "priceRange": "محدوده قیمت (تومان)",
+      "from": "از",
+      "to": "تا",
+      "clearAll": "حذف همه فیلترها",
+      "toggle": "فیلترها"
+    },
+    "noResults": "محصولی با این مشخصات پیدا نشد."
+  },
+  "cart": {
+    "title": "سبد خرید",
+    "empty": "سبد خرید شما خالی است",
+    "emptyDesc": "محصولات مورد نظر خود را به سبد خرید اضافه کنید.",
+    "browseProducts": "مشاهده محصولات",
+    "orderSummary": "خلاصه سفارش",
+    "subtotal": "جمع کل",
+    "shippingNote": "هزینه ارسال در مرحله بعد محاسبه می‌شود",
+    "checkout": "ادامه فرآیند خرید",
+    "remove": "حذف"
+  },
+  "checkout": {
+    "title": "تسویه حساب",
+    "shippingAddress": "آدرس ارسال",
+    "noAddress": "آدرسی ثبت نشده. از صفحه آدرس‌ها یک آدرس اضافه کنید.",
+    "shippingMethod": "روش ارسال",
+    "postExpress": "پست پیشتاز",
+    "motorCourier": "پیک موتوری (فقط تهران)",
+    "freeShippingNote": "سفارش‌های بالای {amount} ارسال رایگان دارند.",
+    "discountCode": "کد تخفیف",
+    "discountCodePlaceholder": "کد تخفیف را وارد کنید",
+    "loyaltyClub": "باشگاه مشتریان",
+    "usePoints": "استفاده از {points} امتیاز ({amount} تخفیف)",
+    "tierDiscountNote": "شما مشتری سطح {tier} هستید و {percent}٪ تخفیف ویژه دریافت می‌کنید.",
+    "summary": "خلاصه سفارش",
+    "items": "جمع کالاها",
+    "discount": "تخفیف",
+    "shippingCost": "هزینه ارسال",
+    "free": "رایگان",
+    "total": "مبلغ قابل پرداخت",
+    "pay": "پرداخت و ثبت سفارش",
+    "selectAddressError": "لطفاً یک آدرس انتخاب کنید",
+    "orderError": "خطایی در ثبت سفارش رخ داد"
+  },
+  "tiers": {
+    "BRONZE": "برنزی",
+    "SILVER": "نقره‌ای",
+    "GOLD": "طلایی"
+  },
+  "auth": {
+    "loginTitle": "ورود به حساب کاربری",
+    "loginSubtitle": "با شماره موبایل یا ایمیل وارد شوید",
+    "identifier": "شماره موبایل یا ایمیل",
+    "password": "رمز عبور",
+    "loginButton": "ورود",
+    "loggingIn": "در حال ورود...",
+    "noAccount": "حساب کاربری ندارید؟",
+    "registerLink": "ثبت‌نام کنید",
+    "registerTitle": "ساخت حساب کاربری",
+    "registerSubtitle": "برای خرید و پیگیری سفارش‌ها ثبت‌نام کنید",
+    "fullName": "نام و نام خانوادگی",
+    "registerButton": "ثبت‌نام",
+    "registering": "در حال ثبت‌نام...",
+    "haveAccount": "قبلاً ثبت‌نام کرده‌اید؟",
+    "loginLink": "وارد شوید",
+    "wrongCredentials": "شماره موبایل/ایمیل یا رمز عبور اشتباه است",
+    "welcome": "خوش آمدید",
+    "registerSuccess": "ثبت‌نام با موفقیت انجام شد"
+  },
+  "brandsPage": {
+    "title": "برندهای معتبر کاشی و سرامیک",
+    "subtitle": "فروشگاه Parsian Ceram، نماینده رسمی محصولات برترین تولیدکنندگان کاشی و سرامیک ایران است؛ برندهایی با سابقه طولانی تولید و صادرات به بازارهای منطقه از جمله قفقاز و گرجستان.",
+    "productsAvailable": "{count} محصول موجود",
+    "from": "از",
+    "viewProducts": "مشاهده محصولات {brand}"
+  },
+  "review": {
+    "loginRequired": "برای ثبت نظر، ابتدا وارد حساب کاربری خود شوید.",
+    "placeholder": "نظر شما درباره این محصول...",
+    "submit": "ثبت نظر",
+    "submitting": "در حال ارسال...",
+    "success": "نظر شما با موفقیت ثبت شد",
+    "ratingLabel": "امتیاز {n}"
+  },
+  "payment": {
+    "successTitle": "پرداخت با موفقیت انجام شد",
+    "successDesc": "سفارش شما ثبت شد و در حال پردازش است.",
+    "viewOrder": "مشاهده سفارش",
+    "canceledTitle": "پرداخت لغو شد",
+    "canceledDesc": "در صورت تمایل می‌توانید دوباره تلاش کنید.",
+    "retry": "تلاش دوباره",
+    "backToCart": "بازگشت به سبد خرید",
+    "errorTitle": "خطا در پرداخت",
+    "errorDesc": "مشکلی در ارتباط با درگاه پرداخت رخ داد."
+  },
+  "chat": {
+    "title": "پشتیبانی آنلاین",
+    "greeting": "سلام! سوالی دارید؟ همین‌جا بپرسید.",
+    "placeholder": "پیام خود را بنویسید...",
+    "close": "بستن",
+    "widgetLabel": "چت پشتیبانی"
+  }
+}

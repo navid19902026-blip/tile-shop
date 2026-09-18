@@ -4,6 +4,7 @@ import { ShoppingCart, Plus, Minus } from "lucide-react";
 import { useCartStore, type CartItem } from "@/lib/cart-store";
 import { toast } from "sonner";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 export default function AddToCartButton({
@@ -13,6 +14,7 @@ export default function AddToCartButton({
   product: Omit<CartItem, "quantity">;
   compact?: boolean;
 }) {
+  const t = useTranslations("product");
   const addItem = useCartStore((s) => s.addItem);
   const items = useCartStore((s) => s.items);
   const setQuantity = useCartStore((s) => s.setQuantity);
@@ -27,13 +29,13 @@ export default function AddToCartButton({
         disabled={outOfStock}
         onClick={() => {
           addItem(product, 1);
-          toast.success("به سبد خرید اضافه شد");
+          toast.success(t("addedToCart"));
         }}
         className={cn(
           "flex h-8 w-8 items-center justify-center rounded-full bg-brand-500 text-white transition hover:bg-brand-600",
           outOfStock && "cursor-not-allowed bg-slate-200 text-slate-400 hover:bg-slate-200"
         )}
-        aria-label="افزودن به سبد خرید"
+        aria-label={t("addToCart")}
       >
         <ShoppingCart size={15} />
       </button>
@@ -64,7 +66,7 @@ export default function AddToCartButton({
           } else {
             addItem(product, qty);
           }
-          toast.success("به سبد خرید اضافه شد");
+          toast.success(t("addedToCart"));
         }}
         className={cn(
           "flex flex-1 items-center justify-center gap-2 rounded-xl bg-brand-500 px-5 py-3 text-sm font-bold text-white transition hover:bg-brand-600",
@@ -72,7 +74,7 @@ export default function AddToCartButton({
         )}
       >
         <ShoppingCart size={18} />
-        {outOfStock ? "ناموجود" : "افزودن به سبد خرید"}
+        {outOfStock ? t("outOfStock") : t("addToCart")}
       </button>
     </div>
   );

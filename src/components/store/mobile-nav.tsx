@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { Menu as MenuIcon, X } from "lucide-react";
+
+const KNOWN_CATEGORY_SLUGS = ["wall-tile", "floor-tile", "ceramic", "porcelain"];
 
 export default function MobileNav({
   categories,
@@ -10,12 +13,18 @@ export default function MobileNav({
   categories: { id: string; name: string; slug: string }[];
 }) {
   const [open, setOpen] = useState(false);
+  const t = useTranslations("nav");
+  const tCategories = useTranslations("categories");
+
+  function categoryLabel(slug: string, fallback: string) {
+    return KNOWN_CATEGORY_SLUGS.includes(slug) ? tCategories(slug) : fallback;
+  }
 
   return (
     <div className="md:hidden">
       <button
         onClick={() => setOpen(true)}
-        aria-label="باز کردن منو"
+        aria-label={t("menu")}
         className="rounded-lg p-2 text-slate-700 hover:bg-slate-100"
       >
         <MenuIcon size={22} />
@@ -26,17 +35,17 @@ export default function MobileNav({
           <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} />
           <div className="relative mr-auto flex h-full w-72 flex-col bg-white p-4 shadow-xl animate-fade-in">
             <div className="mb-4 flex items-center justify-between">
-              <span className="text-lg font-bold text-brand-600">منو</span>
+              <span className="text-lg font-bold text-brand-600">{t("menu")}</span>
               <button onClick={() => setOpen(false)} className="rounded-lg p-1.5 hover:bg-slate-100">
                 <X size={20} />
               </button>
             </div>
             <nav className="flex flex-col gap-1">
               <Link href="/products" onClick={() => setOpen(false)} className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-800 hover:bg-brand-50">
-                همه محصولات
+                {t("allProducts")}
               </Link>
               <Link href="/brands" onClick={() => setOpen(false)} className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-800 hover:bg-brand-50">
-                برندها
+                {t("brands")}
               </Link>
               {categories.map((c) => (
                 <Link
@@ -45,7 +54,7 @@ export default function MobileNav({
                   onClick={() => setOpen(false)}
                   className="rounded-lg px-3 py-2.5 text-sm text-slate-700 hover:bg-brand-50"
                 >
-                  {c.name}
+                  {categoryLabel(c.slug, c.name)}
                 </Link>
               ))}
             </nav>

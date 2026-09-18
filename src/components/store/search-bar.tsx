@@ -1,11 +1,14 @@
 "use client";
 
 import { Search } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 export default function SearchBar({ className }: { className?: string }) {
   const router = useRouter();
+  const t = useTranslations("nav");
   const searchParams = useSearchParams();
   const [q, setQ] = useState(searchParams?.get("q") ?? "");
 
@@ -24,7 +27,7 @@ export default function SearchBar({ className }: { className?: string }) {
           value={q}
           onChange={(e) => setQ(e.target.value)}
           type="text"
-          placeholder="جستجوی کاشی، سرامیک، برند..."
+          placeholder={t("searchPlaceholder")}
           className="w-full bg-transparent text-sm outline-none placeholder:text-slate-400"
         />
       </div>

@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Vazirmatn } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 import "./globals.css";
 import Providers from "@/components/providers";
+import { RTL_LOCALES, type Locale } from "@/i18n/routing";
 
 const vazirmatn = Vazirmatn({
   subsets: ["arabic"],
@@ -19,15 +22,21 @@ export const metadata: Metadata = {
     "پارسیان سرام (Parsian Ceram)؛ فروشگاه آنلاین کاشی و سرامیک با ارسال به سراسر ایران و صادرات به قفقاز.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = (await getLocale()) as Locale;
+  const messages = await getMessages();
+  const dir = RTL_LOCALES.includes(locale) ? "rtl" : "ltr";
+
   return (
-    <html lang="fa" dir="rtl">
+    <html lang={locale} dir={dir}>
       <body className={`${vazirmatn.variable} font-sans antialiased`}>
-        <Providers>{children}</Providers>
+        <NextIntlClientProvider messages={messages}>
+          <Providers>{children}</Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

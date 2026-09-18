@@ -2,8 +2,9 @@
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { SlidersHorizontal, X } from "lucide-react";
-import { formatToman } from "@/lib/utils";
+import { formatPrice } from "@/lib/utils";
 
 type FilterOptions = {
   brands: string[];
@@ -14,6 +15,8 @@ type FilterOptions = {
 };
 
 export default function ProductFilters({ options }: { options: FilterOptions }) {
+  const t = useTranslations("products.filters");
+  const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -50,7 +53,7 @@ export default function ProductFilters({ options }: { options: FilterOptions }) 
   const content = (
     <div className="space-y-6">
       {options.brands.length > 0 && (
-        <FilterGroup title="برند">
+        <FilterGroup title={t("brand")}>
           {options.brands.map((b) => (
             <CheckboxRow key={b} label={b} checked={selected.brand.includes(b)} onChange={() => toggleMulti("brand", b)} />
           ))}
@@ -58,7 +61,7 @@ export default function ProductFilters({ options }: { options: FilterOptions }) 
       )}
 
       {options.sizes.length > 0 && (
-        <FilterGroup title="سایز">
+        <FilterGroup title={t("size")}>
           {options.sizes.map((s) => (
             <CheckboxRow key={s} label={s} checked={selected.size.includes(s)} onChange={() => toggleMulti("size", s)} />
           ))}
@@ -66,16 +69,16 @@ export default function ProductFilters({ options }: { options: FilterOptions }) 
       )}
 
       {options.colors.length > 0 && (
-        <FilterGroup title="رنگ">
+        <FilterGroup title={t("color")}>
           {options.colors.map((c) => (
             <CheckboxRow key={c} label={c} checked={selected.color.includes(c)} onChange={() => toggleMulti("color", c)} />
           ))}
         </FilterGroup>
       )}
 
-      <FilterGroup title="ویژگی">
+      <FilterGroup title={t("feature")}>
         <CheckboxRow
-          label="ضدلغزش"
+          label={t("antiSlip")}
           checked={selected.antiSlip}
           onChange={() =>
             updateParams((params) => {
@@ -86,11 +89,11 @@ export default function ProductFilters({ options }: { options: FilterOptions }) 
         />
       </FilterGroup>
 
-      <FilterGroup title="محدوده قیمت (تومان)">
+      <FilterGroup title={t("priceRange")}>
         <div className="flex items-center gap-2">
           <input
             type="number"
-            placeholder={`از ${formatToman(options.minPrice)}`}
+            placeholder={`${t("from")} ${formatPrice(options.minPrice, locale)}`}
             defaultValue={selected.minPrice}
             onBlur={(e) => updateParams((p) => (e.target.value ? p.set("minPrice", e.target.value) : p.delete("minPrice")))}
             className="w-full rounded-lg border border-slate-200 px-2 py-1.5 text-xs"
@@ -98,7 +101,7 @@ export default function ProductFilters({ options }: { options: FilterOptions }) 
           <span className="text-slate-300">-</span>
           <input
             type="number"
-            placeholder={`تا ${formatToman(options.maxPrice)}`}
+            placeholder={`${t("to")} ${formatPrice(options.maxPrice, locale)}`}
             defaultValue={selected.maxPrice}
             onBlur={(e) => updateParams((p) => (e.target.value ? p.set("maxPrice", e.target.value) : p.delete("maxPrice")))}
             className="w-full rounded-lg border border-slate-200 px-2 py-1.5 text-xs"
@@ -110,7 +113,7 @@ export default function ProductFilters({ options }: { options: FilterOptions }) 
         onClick={() => router.push(pathname)}
         className="w-full rounded-lg border border-slate-200 py-2 text-xs font-medium text-slate-500 hover:bg-slate-50"
       >
-        حذف همه فیلترها
+        {t("clearAll")}
       </button>
     </div>
   );
@@ -125,14 +128,14 @@ export default function ProductFilters({ options }: { options: FilterOptions }) 
           className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 py-2.5 text-sm font-medium text-slate-700"
         >
           <SlidersHorizontal size={16} />
-          فیلترها
+          {t("toggle")}
         </button>
         {mobileOpen && (
           <div className="fixed inset-0 z-50 flex items-end">
             <div className="absolute inset-0 bg-black/40" onClick={() => setMobileOpen(false)} />
             <div className="relative max-h-[80vh] w-full overflow-y-auto rounded-t-2xl bg-white p-4">
               <div className="mb-3 flex items-center justify-between">
-                <span className="font-bold">فیلترها</span>
+                <span className="font-bold">{t("toggle")}</span>
                 <button onClick={() => setMobileOpen(false)}>
                   <X size={20} />
                 </button>

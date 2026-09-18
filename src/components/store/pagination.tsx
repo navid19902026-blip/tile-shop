@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 
 export default function Pagination({
