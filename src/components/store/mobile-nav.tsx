@@ -35,6 +35,9 @@ export default function MobileNav({
               <Link href="/products" onClick={() => setOpen(false)} className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-800 hover:bg-brand-50">
                 همه محصولات
               </Link>
+              <Link href="/brands" onClick={() => setOpen(false)} className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-800 hover:bg-brand-50">
+                برندها
+              </Link>
               {categories.map((c) => (
                 <Link
                   key={c.id}

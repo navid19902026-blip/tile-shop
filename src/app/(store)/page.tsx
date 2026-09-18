@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowLeft, ShieldCheck, Truck, BadgePercent, Headset } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getFeaturedProducts, getNewProducts } from "@/lib/products";
+import { FEATURED_BRANDS } from "@/lib/brands";
 import ProductCard from "@/components/store/product-card";
 import CategoryCard from "@/components/store/category-card";
 
@@ -66,6 +67,21 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      <section className="mx-auto max-w-7xl px-4 py-8">
+        <SectionHeader title="برندهای معتبر" href="/brands" />
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+          {FEATURED_BRANDS.map((b) => (
+            <Link
+              key={b.name}
+              href={`/products?brand=${encodeURIComponent(b.name)}`}
+              className="flex items-center justify-center rounded-2xl border border-slate-100 py-6 text-sm font-bold text-slate-700 transition hover:border-brand-300 hover:text-brand-600"
+            >
+              {b.name}
+            </Link>
+          ))}
+        </div>
+      </section>
 
       {featured.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 py-8">

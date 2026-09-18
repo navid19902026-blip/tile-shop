@@ -39,6 +39,9 @@ export default async function SiteHeader() {
           <Link href="/products" className="font-medium text-slate-700 hover:text-brand-600">
             همه محصولات
           </Link>
+          <Link href="/brands" className="font-medium text-slate-700 hover:text-brand-600">
+            برندها
+          </Link>
           {categories.map((c) => (
             <Link key={c.id} href={`/products?category=${c.slug}`} className="text-slate-600 hover:text-brand-600">
               {c.name}
