@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Bot } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 
 export default async function AdminChatsPage() {
@@ -27,6 +28,16 @@ export default async function AdminChatsPage() {
                 <span className={`rounded-full px-2 py-0.5 text-[11px] font-bold ${c.status === "OPEN" ? "bg-emerald-50 text-emerald-600" : "bg-slate-100 text-slate-400"}`}>
                   {c.status === "OPEN" ? "باز" : "بسته"}
                 </span>
+                {c.status === "OPEN" && (
+                  <span
+                    className={`flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-bold ${
+                      c.handledBy === "AI" ? "bg-indigo-50 text-indigo-600" : "bg-amber-50 text-amber-600"
+                    }`}
+                  >
+                    <Bot size={11} />
+                    {c.handledBy === "AI" ? "هوشمند" : "نیاز به پاسخ"}
+                  </span>
+                )}
               </div>
               <p className="mt-1 line-clamp-1 text-xs text-slate-400">{c.messages[0]?.message ?? "بدون پیام"}</p>
             </div>

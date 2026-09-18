@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { MessageCircle, X, Send } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { MessageCircle, X, Send, Bot } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 type ChatMessage = {
   id: string;
-  senderType: "USER" | "ADMIN";
+  senderType: "USER" | "ADMIN" | "AI";
   message: string;
   createdAt: string;
 };
@@ -16,11 +16,14 @@ const POLL_INTERVAL_MS = 4000;
 
 export default function ChatWidget() {
   const t = useTranslations("chat");
+  const locale = useLocale();
   const [open, setOpen] = useState(false);
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [handledBy, setHandledBy] = useState<"AI" | "HUMAN">("AI");
   const [input, setInput] = useState("");
   const [unread, setUnread] = useState(0);
+  const [sending, setSending] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const lastCountRef = useRef(0);
 
@@ -40,6 +43,7 @@ export default function ChatWidget() {
       if (!res.ok || cancelled) return;
       const data = await res.json();
       setMessages(data.messages);
+      setHandledBy(data.handledBy);
       if (!open && data.messages.length > lastCountRef.current) {
         setUnread((u) => u + (data.messages.length - lastCountRef.current));
       }
@@ -60,10 +64,10 @@ export default function ChatWidget() {
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages]);
+  }, [messages, sending]);
 
   async function sendMessage() {
-    if (!input.trim()) return;
+    if (!input.trim() || sending) return;
     let cid = conversationId;
     if (!cid) {
       const res = await fetch("/api/chat/conversation");
@@ -73,14 +77,20 @@ export default function ChatWidget() {
     }
     const text = input;
     setInput("");
-    await fetch("/api/chat/messages", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ conversationId: cid, message: text }),
-    });
-    const res = await fetch(`/api/chat/messages?conversationId=${cid}`);
-    const data = await res.json();
-    setMessages(data.messages);
+    setSending(true);
+    try {
+      await fetch("/api/chat/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ conversationId: cid, message: text, locale }),
+      });
+      const res = await fetch(`/api/chat/messages?conversationId=${cid}`);
+      const data = await res.json();
+      setMessages(data.messages);
+      setHandledBy(data.handledBy);
+    } finally {
+      setSending(false);
+    }
   }
 
   return (
@@ -99,18 +109,36 @@ export default function ChatWidget() {
               <p className="mt-6 text-center text-xs text-slate-400">{t("greeting")}</p>
             )}
             {messages.map((m) => (
-              <div
-                key={m.id}
-                className={cn(
-                  "max-w-[85%] rounded-2xl px-3 py-2 text-sm leading-6",
-                  m.senderType === "USER"
-                    ? "mr-auto rounded-br-sm bg-brand-500 text-white"
-                    : "ml-auto rounded-bl-sm bg-white text-slate-800 shadow"
+              <div key={m.id}>
+                {m.senderType === "AI" && (
+                  <div className="mb-0.5 flex items-center gap-1 text-[10px] font-bold text-indigo-400">
+                    <Bot size={11} /> {t("aiLabel")}
+                  </div>
                 )}
-              >
-                {m.message}
+                <div
+                  className={cn(
+                    "max-w-[85%] rounded-2xl px-3 py-2 text-sm leading-6",
+                    m.senderType === "USER"
+                      ? "mr-auto rounded-br-sm bg-brand-500 text-white"
+                      : m.senderType === "AI"
+                        ? "ml-auto rounded-bl-sm bg-indigo-50 text-indigo-900 shadow"
+                        : "ml-auto rounded-bl-sm bg-white text-slate-800 shadow"
+                  )}
+                >
+                  {m.message}
+                </div>
               </div>
             ))}
+            {messages.length > 0 && handledBy === "HUMAN" && (
+              <p className="pt-1 text-center text-[11px] text-slate-400">{t("humanConnected")}</p>
+            )}
+            {sending && (
+              <div className="ml-auto flex w-fit items-center gap-1 rounded-2xl rounded-bl-sm bg-white px-3 py-2 shadow">
+                <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-300 [animation-delay:-0.3s]" />
+                <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-300 [animation-delay:-0.15s]" />
+                <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-300" />
+              </div>
+            )}
           </div>
 
           <form
@@ -124,9 +152,14 @@ export default function ChatWidget() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder={t("placeholder")}
-              className="flex-1 rounded-full border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400"
+              disabled={sending}
+              className="flex-1 rounded-full border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 disabled:opacity-60"
             />
-            <button type="submit" className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-500 text-white">
+            <button
+              type="submit"
+              disabled={sending}
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-500 text-white disabled:opacity-60"
+            >
               <Send size={16} />
             </button>
           </form>

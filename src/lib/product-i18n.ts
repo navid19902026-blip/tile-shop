@@ -74,3 +74,12 @@ function lookup(map: Glossary, value: string | null | undefined, locale: string)
 export const colorName = (value: string | null | undefined, locale: string) => lookup(COLOR_LABELS, value, locale);
 export const materialName = (value: string | null | undefined, locale: string) => lookup(MATERIAL_LABELS, value, locale);
 export const usageName = (value: string | null | undefined, locale: string) => lookup(USAGE_LABELS, value, locale);
+
+// English color name -> the (first matching) Persian DB value. Used by the
+// AI chat assistant's product-search tool, which only knows English labels.
+const COLOR_EN_TO_FA: Record<string, string> = {};
+for (const [fa, { en }] of Object.entries(COLOR_LABELS)) {
+  COLOR_EN_TO_FA[en] ??= fa;
+}
+export const COLOR_EN_VALUES = Array.from(new Set(Object.values(COLOR_LABELS).map((v) => v.en)));
+export const colorFaFromEn = (en: string): string | undefined => COLOR_EN_TO_FA[en];

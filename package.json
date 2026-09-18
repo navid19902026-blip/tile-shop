@@ -11,6 +11,7 @@
     "postinstall": "node scripts/patch-native-stubs.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.127.0",
     "@auth/prisma-adapter": "^2.11.3",
     "@headlessui/react": "^2.2.10",
     "@hookform/resolvers": "^5.9.1",

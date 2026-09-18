@@ -26,9 +26,10 @@ export async function POST(req: NextRequest) {
     },
   });
 
+  // Any manual admin reply takes the conversation over from the AI assistant.
   await prisma.chatConversation.update({
     where: { id: parsed.data.conversationId },
-    data: { updatedAt: new Date() },
+    data: { updatedAt: new Date(), handledBy: "HUMAN" },
   });
 
   return NextResponse.json({ message });

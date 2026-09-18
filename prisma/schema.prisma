@@ -332,6 +332,12 @@ enum ConversationStatus {
 enum SenderType {
   USER
   ADMIN
+  AI
+}
+
+enum ChatHandler {
+  AI
+  HUMAN
 }
 
 model ChatConversation {
@@ -341,6 +347,8 @@ model ChatConversation {
   guestName String? // for non-logged-in visitors
   guestId   String? // cookie-based id for guests
   status    ConversationStatus @default(OPEN)
+  handledBy ChatHandler @default(AI) // who is expected to reply next
+  locale    String? // last known site locale of the visitor, for AI replies
   messages  ChatMessage[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

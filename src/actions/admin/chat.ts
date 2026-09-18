@@ -17,3 +17,10 @@ export async function reopenConversation(conversationId: string) {
   revalidatePath("/admin/chats");
   revalidatePath(`/admin/chats/${conversationId}`);
 }
+
+export async function returnConversationToAi(conversationId: string) {
+  await requireAdmin();
+  await prisma.chatConversation.update({ where: { id: conversationId }, data: { handledBy: "AI" } });
+  revalidatePath("/admin/chats");
+  revalidatePath(`/admin/chats/${conversationId}`);
+}

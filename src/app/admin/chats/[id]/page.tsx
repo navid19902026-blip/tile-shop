@@ -21,6 +21,7 @@ export default async function AdminChatDetailPage({ params }: { params: Promise<
         conversationId={conversation.id}
         initialMessages={conversation.messages.map((m) => ({ ...m, createdAt: m.createdAt.toISOString() }))}
         initialStatus={conversation.status}
+        initialHandledBy={conversation.handledBy}
       />
     </div>
   );

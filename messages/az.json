@@ -242,7 +242,9 @@
     "greeting": "Salam! Sualınız var? Buradan soruşa bilərsiniz.",
     "placeholder": "Mesajınızı yazın...",
     "close": "Bağla",
-    "widgetLabel": "Dəstək çatı"
+    "widgetLabel": "Dəstək çatı",
+    "aiLabel": "Süni intellekt köməkçisi",
+    "humanConnected": "İnsan dəstək agentinə qoşuldunuz, tezliklə cavab veriləcək"
   },
   "account": {
     "fullName": "Ad və soyad",

@@ -136,6 +136,11 @@ export function brandName(faName: string, locale: string): string {
   return brand ? brand[NAME_KEY[locale]] : faName;
 }
 
+/** English brand name -> the Persian DB value. Used by the AI chat assistant's product-search tool. */
+export function brandFaFromEn(nameEn: string): string | undefined {
+  return FEATURED_BRANDS.find((b) => b.nameEn.toLowerCase() === nameEn.toLowerCase())?.name;
+}
+
 export async function getFeaturedBrandsWithStats(locale: string) {
   const names = FEATURED_BRANDS.map((b) => b.name);
 

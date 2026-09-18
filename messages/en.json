@@ -242,7 +242,9 @@
     "greeting": "Hi! Have a question? Ask right here.",
     "placeholder": "Write your message...",
     "close": "Close",
-    "widgetLabel": "Support Chat"
+    "widgetLabel": "Support Chat",
+    "aiLabel": "AI Assistant",
+    "humanConnected": "You're now connected to a human agent — they'll reply shortly"
   },
   "account": {
     "fullName": "Full Name",
