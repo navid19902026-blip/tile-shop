@@ -5,8 +5,10 @@ import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
-function img(seed) {
-  return `https://picsum.photos/seed/${seed}/900/900`;
+// Real product photos downloaded from each brand's official catalog/site
+// (see scripts/_download-brand-images.mjs for sources); served from /public/uploads/brands.
+function brandImg(file) {
+  return `/uploads/brands/${file}`;
 }
 
 async function main() {
@@ -44,7 +46,7 @@ async function main() {
       stock: 240,
       isFeatured: true,
       isNew: false,
-      images: [img("wall1"), img("wall1b")],
+      images: [brandImg("alvand-1.jpg")],
     },
     {
       name: "کاشی دیوار نیلو طرح چوب بژ ۲۵×۴۰",
@@ -62,7 +64,7 @@ async function main() {
       stock: 180,
       isFeatured: false,
       isNew: true,
-      images: [img("wall2")],
+      images: [brandImg("nilou-2.jpg")],
     },
     {
       name: "کاشی کف الوند طرح گرانیت طوسی ۶۰×۶۰",
@@ -80,7 +82,7 @@ async function main() {
       stock: 150,
       isFeatured: true,
       isNew: false,
-      images: [img("floor1"), img("floor1b")],
+      images: [brandImg("alvand-2.jpg")],
     },
     {
       name: "کاشی کف مرجان ضدلغزش طرح سنگ تیره ۴۰×۴۰",
@@ -98,7 +100,7 @@ async function main() {
       stock: 200,
       isFeatured: false,
       isNew: true,
-      images: [img("floor2")],
+      images: [brandImg("marjan-1.jpg")],
     },
     {
       name: "سرامیک نیلو طرح گل سنتی ۲۰×۲۰",
@@ -116,7 +118,7 @@ async function main() {
       stock: 90,
       isFeatured: false,
       isNew: false,
-      images: [img("ceramic1")],
+      images: [brandImg("nilou-3.jpg")],
     },
     {
       name: "سرامیک کف پرسپولیس آشپزخانه طرح هگزاگونال",
@@ -134,7 +136,7 @@ async function main() {
       stock: 130,
       isFeatured: true,
       isNew: true,
-      images: [img("ceramic2")],
+      images: [brandImg("persepolis-1.jpg")],
     },
     {
       name: "پرسلان الوند مات طرح سیمانی ۸۰×۸۰",
@@ -152,7 +154,7 @@ async function main() {
       stock: 75,
       isFeatured: true,
       isNew: false,
-      images: [img("porcelain1"), img("porcelain1b")],
+      images: [brandImg("alvand-3.jpg")],
     },
     {
       name: "پرسلان تبریز براق طرح مرمر طلایی ۶۰×۱۲۰",
@@ -170,7 +172,7 @@ async function main() {
       stock: 40,
       isFeatured: false,
       isNew: true,
-      images: [img("porcelain2")],
+      images: [brandImg("tabriz-1.jpg")],
     },
     // --- برند تبریز ---
     {
@@ -189,7 +191,7 @@ async function main() {
       stock: 160,
       isFeatured: true,
       isNew: false,
-      images: [img("tabriz1")],
+      images: [brandImg("tabriz-2.jpg")],
     },
     {
       name: "کاشی کف تبریز پرسلان طوسی ۶۰×۶۰",
@@ -207,7 +209,7 @@ async function main() {
       stock: 140,
       isFeatured: false,
       isNew: false,
-      images: [img("tabriz2")],
+      images: [brandImg("tabriz-3.jpg")],
     },
     // --- برند مرجان ---
     {
@@ -226,7 +228,7 @@ async function main() {
       stock: 220,
       isFeatured: false,
       isNew: false,
-      images: [img("marjan1")],
+      images: [brandImg("marjan-2.jpg")],
     },
     {
       name: "کاشی کف مرجان طرح گرانیت مشکی ۴۰×۴۰",
@@ -244,7 +246,7 @@ async function main() {
       stock: 110,
       isFeatured: false,
       isNew: true,
-      images: [img("marjan2")],
+      images: [brandImg("marjan-3.jpg")],
     },
     // --- برند پرسپولیس ---
     {
@@ -263,7 +265,7 @@ async function main() {
       stock: 170,
       isFeatured: false,
       isNew: true,
-      images: [img("persepolis1")],
+      images: [brandImg("persepolis-2.jpg")],
     },
     {
       name: "کاشی کف پرسپولیس طرح چوب روشن ۲۰×۱۲۰",
@@ -281,7 +283,7 @@ async function main() {
       stock: 95,
       isFeatured: true,
       isNew: false,
-      images: [img("persepolis2")],
+      images: [brandImg("persepolis-3.jpg")],
     },
     // --- برند نیلو ---
     {
@@ -300,7 +302,7 @@ async function main() {
       stock: 130,
       isFeatured: false,
       isNew: false,
-      images: [img("nilou1")],
+      images: [brandImg("nilou-1.jpg")],
     },
   ];
 

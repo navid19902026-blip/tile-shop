@@ -29,9 +29,11 @@ yarn-error.log*
 .env
 .env*.local
 
-# uploaded product images
+# uploaded product images (admin-uploaded runtime content)
 /public/uploads/*
 !/public/uploads/.gitkeep
+# ...except the seed-data brand photos, which are committed so a fresh clone renders correctly
+!/public/uploads/brands/
 
 # local dev-only database (PGlite), not used in production
 /.devdb
