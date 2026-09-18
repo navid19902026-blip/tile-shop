@@ -25,23 +25,41 @@ export function formatToman(amount: number) {
   return toPersianDigits(amount.toLocaleString("en-US")) + " تومان";
 }
 
-const CURRENCY_LABEL_BY_LOCALE: Record<string, string> = {
-  fa: "تومان",
-  az: "tümen",
-  en: "Toman",
-  ka: "თუმანი",
-};
+// Approximate free-market Toman/USD rate (Sep 2026). Display-only — update as needed.
+export const TOMAN_PER_USD = 230_000;
 
-/** Locale-aware price formatter for pages wired up to next-intl (fa keeps Persian digits, others use Western digits). */
+/**
+ * Locale-aware price formatter. The `fa` (domestic) locale shows Toman with
+ * Persian digits; the other, export-facing locales (az/en/ka) show the
+ * approximate USD equivalent.
+ */
 export function formatPrice(amount: number, locale: string) {
-  const digits = amount.toLocaleString("en-US");
-  const localizedDigits = locale === "fa" ? toPersianDigits(digits) : digits;
-  return `${localizedDigits} ${CURRENCY_LABEL_BY_LOCALE[locale] ?? CURRENCY_LABEL_BY_LOCALE.en}`;
+  if (locale === "fa") {
+    return `${toPersianDigits(amount.toLocaleString("en-US"))} تومان`;
+  }
+  const usd = amount / TOMAN_PER_USD;
+  const formatted = usd.toLocaleString("en-US", {
+    minimumFractionDigits: usd < 100 ? 2 : 0,
+    maximumFractionDigits: usd < 100 ? 2 : 0,
+  });
+  return `$${formatted}`;
 }
 
 /** Locale-aware digit formatter (fa keeps Persian digits, others use Western digits). */
 export function formatNumber(value: number | string, locale: string) {
   return locale === "fa" ? toPersianDigits(value) : String(value);
+}
+
+const DATE_LOCALE_BY_LOCALE: Record<string, string> = {
+  fa: "fa-IR",
+  az: "az-Latn-AZ",
+  en: "en-US",
+  ka: "ka-GE",
+};
+
+/** Locale-aware date formatter. */
+export function formatDate(date: Date | string, locale: string) {
+  return new Date(date).toLocaleDateString(DATE_LOCALE_BY_LOCALE[locale] ?? "en-US");
 }
 
 export function slugify(input: string) {

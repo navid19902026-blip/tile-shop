@@ -64,7 +64,6 @@ export async function applyLoyaltyForOrder(orderId: string) {
         type: "EARN",
         points: pointsEarned,
         orderId: order.id,
-        description: `امتیاز کسب‌شده بابت سفارش #${order.id.slice(-6)}`,
       },
     }),
   ]);

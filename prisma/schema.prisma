@@ -115,6 +115,14 @@ model Product {
   categoryId  String
   category    Category @relation(fields: [categoryId], references: [id])
 
+  // Translations (fa is the canonical `name`/`description` above)
+  nameEn        String?
+  nameAz        String?
+  nameKa        String?
+  descriptionEn String? @db.Text
+  descriptionAz String? @db.Text
+  descriptionKa String? @db.Text
+
   brand     String?
   size      String? // e.g. "60x60"
   color     String?

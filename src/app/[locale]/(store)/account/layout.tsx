@@ -1,14 +1,17 @@
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { PackageSearch, MapPin, Award, User } from "lucide-react";
 
-const NAV = [
-  { href: "/account/orders", label: "سفارش‌های من", icon: PackageSearch },
-  { href: "/account/addresses", label: "آدرس‌های من", icon: MapPin },
-  { href: "/account/loyalty", label: "باشگاه مشتریان", icon: Award },
-  { href: "/account/profile", label: "اطلاعات حساب", icon: User },
-];
+export default async function AccountLayout({ children }: { children: React.ReactNode }) {
+  const t = await getTranslations();
 
-export default function AccountLayout({ children }: { children: React.ReactNode }) {
+  const NAV = [
+    { href: "/account/orders", label: t("nav.myOrders"), icon: PackageSearch },
+    { href: "/account/addresses", label: t("nav.myAddresses"), icon: MapPin },
+    { href: "/account/loyalty", label: t("nav.loyaltyClub"), icon: Award },
+    { href: "/account/profile", label: t("nav.profile"), icon: User },
+  ];
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
       <div className="grid grid-cols-1 gap-8 md:grid-cols-[220px_1fr]">

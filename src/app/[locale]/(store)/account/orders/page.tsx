@@ -1,9 +1,10 @@
-import Link from "next/link";
+import { getTranslations, getLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { PackageSearch } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { formatToman, ORDER_STATUS_LABELS, toPersianDigits } from "@/lib/utils";
+import { formatPrice, formatNumber, formatDate } from "@/lib/utils";
 
 export default async function OrdersPage() {
   const session = await auth();
@@ -14,15 +15,17 @@ export default async function OrdersPage() {
     orderBy: { createdAt: "desc" },
     include: { items: true },
   });
+  const t = await getTranslations();
+  const locale = await getLocale();
 
   return (
     <div>
-      <h1 className="mb-6 text-lg font-extrabold text-slate-900">سفارش‌های من</h1>
+      <h1 className="mb-6 text-lg font-extrabold text-slate-900">{t("nav.myOrders")}</h1>
 
       {orders.length === 0 ? (
         <div className="flex flex-col items-center rounded-2xl border border-dashed border-slate-200 py-16 text-center text-sm text-slate-400">
           <PackageSearch size={32} className="mb-2 text-slate-200" />
-          هنوز سفارشی ثبت نکرده‌اید
+          {t("account.noOrders")}
         </div>
       ) : (
         <div className="space-y-3">
@@ -33,14 +36,14 @@ export default async function OrdersPage() {
               className="flex items-center justify-between rounded-2xl border border-slate-100 p-4 hover:border-brand-200"
             >
               <div>
-                <div className="text-sm font-bold text-slate-800">سفارش #{o.id.slice(-6)}</div>
+                <div className="text-sm font-bold text-slate-800">{t("account.orderNumber", { id: o.id.slice(-6) })}</div>
                 <div className="mt-1 text-xs text-slate-400">
-                  {toPersianDigits(o.items.length)} قلم کالا · {new Date(o.createdAt).toLocaleDateString("fa-IR")}
+                  {t("account.itemsCount", { count: formatNumber(o.items.length, locale) })} · {formatDate(o.createdAt, locale)}
                 </div>
               </div>
               <div className="text-left">
-                <div className="text-sm font-bold text-slate-800">{formatToman(o.totalAmount)}</div>
-                <StatusBadge status={o.status} />
+                <div className="text-sm font-bold text-slate-800">{formatPrice(o.totalAmount, locale)}</div>
+                <StatusBadge status={o.status} label={t(`orderStatus.${o.status}`)} />
               </div>
             </Link>
           ))}
@@ -50,7 +53,7 @@ export default async function OrdersPage() {
   );
 }
 
-function StatusBadge({ status }: { status: string }) {
+function StatusBadge({ status, label }: { status: string; label: string }) {
   const colors: Record<string, string> = {
     PENDING_PAYMENT: "bg-amber-50 text-amber-600",
     PROCESSING: "bg-blue-50 text-blue-600",
@@ -60,7 +63,7 @@ function StatusBadge({ status }: { status: string }) {
   };
   return (
     <span className={`mt-1 inline-block rounded-full px-2 py-0.5 text-[11px] font-bold ${colors[status] ?? "bg-slate-50 text-slate-500"}`}>
-      {ORDER_STATUS_LABELS[status] ?? status}
+      {label}
     </span>
   );
 }

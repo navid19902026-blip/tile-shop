@@ -2,13 +2,14 @@
 
 import { z } from "zod";
 import bcrypt from "bcryptjs";
+import { getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 
 const registerSchema = z
   .object({
-    name: z.string().min(2, "نام باید حداقل ۲ کاراکتر باشد"),
-    identifier: z.string().min(3, "ایمیل یا شماره موبایل را وارد کنید"),
-    password: z.string().min(6, "رمز عبور باید حداقل ۶ کاراکتر باشد"),
+    name: z.string().min(2),
+    identifier: z.string().min(3),
+    password: z.string().min(6),
   })
   .transform((data) => {
     const isEmail = data.identifier.includes("@");
@@ -23,6 +24,7 @@ const registerSchema = z
 export type RegisterFormState = { error?: string; success?: boolean };
 
 export async function registerUser(_prev: RegisterFormState, formData: FormData): Promise<RegisterFormState> {
+  const t = await getTranslations("errors");
   const parsed = registerSchema.safeParse({
     name: formData.get("name"),
     identifier: formData.get("identifier"),
@@ -30,7 +32,7 @@ export async function registerUser(_prev: RegisterFormState, formData: FormData)
   });
 
   if (!parsed.success) {
-    return { error: parsed.error.issues[0]?.message ?? "اطلاعات وارد شده نامعتبر است" };
+    return { error: t("invalidInput") };
   }
 
   const { name, email, phone, password } = parsed.data;
@@ -39,7 +41,7 @@ export async function registerUser(_prev: RegisterFormState, formData: FormData)
     where: { OR: [email ? { email } : undefined, phone ? { phone } : undefined].filter(Boolean) as never },
   });
   if (existing) {
-    return { error: "کاربری با این مشخصات قبلاً ثبت‌نام کرده است" };
+    return { error: t("userAlreadyExists") };
   }
 
   const hashed = await bcrypt.hash(password, 10);

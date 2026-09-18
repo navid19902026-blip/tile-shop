@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Plus, X } from "lucide-react";
 import { createAddress, type AddressFormState } from "@/actions/addresses";
@@ -9,16 +10,17 @@ import { createAddress, type AddressFormState } from "@/actions/addresses";
 const initialState: AddressFormState = {};
 
 export default function AddressForm() {
+  const t = useTranslations("account");
   const [open, setOpen] = useState(false);
   const [state, formAction] = useFormState(createAddress, initialState);
 
   useEffect(() => {
     if (state.error) toast.error(state.error);
     if (state.success) {
-      toast.success("آدرس با موفقیت ثبت شد");
+      toast.success(t("addressSaved"));
       setOpen(false);
     }
-  }, [state]);
+  }, [state, t]);
 
   if (!open) {
     return (
@@ -27,7 +29,7 @@ export default function AddressForm() {
         className="flex items-center gap-2 rounded-xl border border-dashed border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-600 hover:border-brand-400 hover:text-brand-600"
       >
         <Plus size={16} />
-        افزودن آدرس جدید
+        {t("addAddress")}
       </button>
     );
   }
@@ -35,25 +37,25 @@ export default function AddressForm() {
   return (
     <form action={formAction} className="space-y-3 rounded-2xl border border-slate-100 p-4">
       <div className="mb-1 flex items-center justify-between">
-        <h3 className="text-sm font-bold text-slate-800">آدرس جدید</h3>
+        <h3 className="text-sm font-bold text-slate-800">{t("newAddress")}</h3>
         <button type="button" onClick={() => setOpen(false)}>
           <X size={18} />
         </button>
       </div>
       <div className="grid grid-cols-2 gap-3">
-        <Field label="نام گیرنده" name="fullName" />
-        <Field label="شماره تماس" name="phone" />
-        <Field label="استان" name="province" />
-        <Field label="شهر" name="city" />
-        <Field label="کد پستی" name="postalCode" />
+        <Field label={t("recipientName")} name="fullName" />
+        <Field label={t("phoneNumber")} name="phone" />
+        <Field label={t("province")} name="province" />
+        <Field label={t("city")} name="city" />
+        <Field label={t("postalCode")} name="postalCode" />
       </div>
       <div>
-        <label className="mb-1.5 block text-xs font-medium text-slate-600">آدرس کامل</label>
+        <label className="mb-1.5 block text-xs font-medium text-slate-600">{t("fullAddress")}</label>
         <textarea name="addressLine" required rows={2} className="w-full rounded-xl border border-slate-200 p-3 text-sm outline-none focus:border-brand-400" />
       </div>
       <label className="flex items-center gap-2 text-sm text-slate-600">
         <input type="checkbox" name="isDefault" value="true" className="h-4 w-4 accent-brand-500" />
-        تنظیم به‌عنوان آدرس پیش‌فرض
+        {t("setAsDefault")}
       </label>
       <SubmitButton />
     </form>
@@ -61,10 +63,11 @@ export default function AddressForm() {
 }
 
 function SubmitButton() {
+  const t = useTranslations("account");
   const { pending } = useFormStatus();
   return (
     <button type="submit" disabled={pending} className="rounded-xl bg-brand-500 px-5 py-2.5 text-sm font-bold text-white hover:bg-brand-600 disabled:opacity-60">
-      {pending ? "در حال ثبت..." : "ثبت آدرس"}
+      {pending ? t("saving") : t("saveAddress")}
     </button>
   );
 }

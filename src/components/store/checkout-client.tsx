@@ -103,7 +103,7 @@ export default function CheckoutClient({
                     <input type="radio" name="address" checked={addressId === a.id} onChange={() => setAddressId(a.id)} className="mt-1 accent-brand-500" />
                     <div>
                       <div className="font-bold text-slate-800">{a.fullName}</div>
-                      <div className="text-xs text-slate-500">{a.province}، {a.city}، {a.addressLine}</div>
+                      <div className="text-xs text-slate-500">{[a.province, a.city, a.addressLine].join(locale === "fa" ? "، " : ", ")}</div>
                     </div>
                   </label>
                 ))}

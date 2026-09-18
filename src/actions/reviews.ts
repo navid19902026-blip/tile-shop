@@ -1,6 +1,7 @@
 "use server";
 
 import { z } from "zod";
+import { getTranslations } from "next-intl/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
@@ -15,9 +16,10 @@ const schema = z.object({
 export type ReviewFormState = { error?: string; success?: boolean };
 
 export async function submitReview(_prev: ReviewFormState, formData: FormData): Promise<ReviewFormState> {
+  const t = await getTranslations("errors");
   const session = await auth();
   if (!session?.user) {
-    return { error: "برای ثبت نظر ابتدا وارد حساب کاربری خود شوید." };
+    return { error: t("reviewLoginRequired") };
   }
 
   const parsed = schema.safeParse({
@@ -27,7 +29,7 @@ export async function submitReview(_prev: ReviewFormState, formData: FormData): 
     comment: formData.get("comment") || undefined,
   });
   if (!parsed.success) {
-    return { error: "لطفاً امتیاز و نظر خود را به‌درستی وارد کنید." };
+    return { error: t("reviewInvalid") };
   }
 
   await prisma.review.create({

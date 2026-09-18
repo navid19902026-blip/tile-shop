@@ -12,7 +12,8 @@
     "adminPanel": "پنل مدیریت",
     "logout": "خروج از حساب",
     "menu": "منو",
-    "language": "زبان"
+    "language": "زبان",
+    "profile": "اطلاعات حساب"
   },
   "categories": {
     "wall-tile": "کاشی دیوار",
@@ -36,10 +37,15 @@
     "categories": "دسته‌بندی محصولات",
     "contact": "تماس با ما",
     "trackOrder": "پیگیری سفارش",
-    "rights": "تمامی حقوق برای فروشگاه Parsian Ceram محفوظ است."
+    "rights": "تمامی حقوق برای فروشگاه Parsian Ceram محفوظ است.",
+    "phone": "۰۲۱-۱۲۳۴۵۶۷۸",
+    "address": "تهران، خیابان کاشی‌سازان، پلاک ۱"
   },
   "home": {
     "hero": {
+      "prevSlide": "اسلاید قبلی",
+      "nextSlide": "اسلاید بعدی",
+      "goToSlide": "رفتن به اسلاید {n}",
       "mainEyebrow": "ارسال به سراسر کشور و صادرات به قفقاز",
       "mainTitle": "Parsian Ceram",
       "mainDescription": "مرجع تخصصی خرید آنلاین انواع کاشی دیوار، کاشی کف، سرامیک و پرسلان با گارانتی اصالت کالا و مشاوره رایگان.",
@@ -108,7 +114,9 @@
     "antiSlip": "ضدلغزش",
     "yes": "دارد",
     "no": "ندارد",
+    "noImage": "بدون تصویر",
     "calculator": {
+      "examplePrefix": "مثلاً",
       "title": "محاسبه‌گر متراژ مورد نیاز",
       "length": "طول فضا (متر)",
       "width": "عرض فضا (متر)",
@@ -235,5 +243,71 @@
     "placeholder": "پیام خود را بنویسید...",
     "close": "بستن",
     "widgetLabel": "چت پشتیبانی"
+  },
+  "account": {
+    "fullName": "نام و نام خانوادگی",
+    "email": "ایمیل",
+    "phone": "شماره موبایل",
+    "loyaltyTier": "سطح باشگاه مشتریان",
+    "joinDate": "تاریخ عضویت",
+    "noAddresses": "هنوز آدرسی ثبت نکرده‌اید",
+    "default": "پیش‌فرض",
+    "postalCode": "کد پستی",
+    "contact": "تماس",
+    "noOrders": "هنوز سفارشی ثبت نکرده‌اید",
+    "orderNumber": "سفارش #{id}",
+    "itemsCount": "{count} قلم کالا",
+    "backToOrders": "← بازگشت به سفارش‌ها",
+    "orderedOn": "ثبت‌شده در {date}",
+    "finalAmount": "مبلغ نهایی",
+    "pointsEarnedNote": "شما {points} امتیاز از این خرید دریافت کردید.",
+    "shippingAddress": "آدرس گیرنده",
+    "currentTier": "سطح فعلی",
+    "currentPoints": "امتیاز فعلی",
+    "pointsUnit": "امتیاز",
+    "totalPurchase": "مجموع خرید",
+    "toNextTier": "تا سطح {tier}",
+    "atHighestTier": "شما به بالاترین سطح رسیده‌اید",
+    "loyaltyDiscountNote": "به‌عنوان مشتری {tier}، {percent}٪ تخفیف ویژه در هر خرید دریافت می‌کنید.",
+    "pointsRuleNote": "به ازای هر {toman} خرید، ۱ امتیاز دریافت می‌کنید. هر امتیاز معادل {value} تخفیف است و می‌توانید در زمان تسویه‌حساب از آن استفاده کنید.",
+    "pointsHistory": "تاریخچه امتیازها",
+    "noPointsHistory": "هنوز تراکنش امتیازی ثبت نشده است.",
+    "earnPoints": "کسب امتیاز",
+    "redeemPoints": "مصرف امتیاز",
+    "addressSaved": "آدرس با موفقیت ثبت شد",
+    "addAddress": "افزودن آدرس جدید",
+    "newAddress": "آدرس جدید",
+    "recipientName": "نام گیرنده",
+    "phoneNumber": "شماره تماس",
+    "province": "استان",
+    "city": "شهر",
+    "fullAddress": "آدرس کامل",
+    "setAsDefault": "تنظیم به‌عنوان آدرس پیش‌فرض",
+    "saving": "در حال ثبت...",
+    "saveAddress": "ثبت آدرس",
+    "defaultAddressChanged": "آدرس پیش‌فرض تغییر کرد",
+    "addressDeleted": "آدرس حذف شد",
+    "deleteAddress": "حذف آدرس"
+  },
+  "orderStatus": {
+    "PENDING_PAYMENT": "در انتظار پرداخت",
+    "PROCESSING": "در حال پردازش",
+    "SHIPPED": "ارسال‌شده",
+    "DELIVERED": "تحویل‌شده",
+    "CANCELED": "لغو‌شده"
+  },
+  "errors": {
+    "loginRequired": "ابتدا وارد حساب کاربری خود شوید",
+    "invalidOrderData": "اطلاعات سفارش نامعتبر است",
+    "invalidAddress": "آدرس انتخاب‌شده معتبر نیست",
+    "productsNotFound": "برخی محصولات یافت نشدند",
+    "insufficientStock": "موجودی «{product}» کافی نیست",
+    "invalidDiscountCode": "کد تخفیف نامعتبر یا منقضی‌شده است",
+    "discountCodeExhausted": "ظرفیت استفاده از این کد تخفیف تمام شده است",
+    "minOrderForDiscount": "حداقل مبلغ سفارش برای این کد {amount} است",
+    "reviewLoginRequired": "برای ثبت نظر ابتدا وارد حساب کاربری خود شوید.",
+    "reviewInvalid": "لطفاً امتیاز و نظر خود را به‌درستی وارد کنید.",
+    "invalidInput": "اطلاعات وارد شده نامعتبر است",
+    "userAlreadyExists": "کاربری با این مشخصات قبلاً ثبت‌نام کرده است"
   }
 }

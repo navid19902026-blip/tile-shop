@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 export default function ProductGallery({
@@ -11,6 +12,7 @@ export default function ProductGallery({
   images: { url: string; alt: string | null }[];
   productName: string;
 }) {
+  const t = useTranslations("product");
   const [active, setActive] = useState(0);
   const current = images[active];
 
@@ -20,7 +22,7 @@ export default function ProductGallery({
         {current ? (
           <Image src={current.url} alt={current.alt ?? productName} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" priority />
         ) : (
-          <div className="flex h-full items-center justify-center text-slate-300">بدون تصویر</div>
+          <div className="flex h-full items-center justify-center text-slate-300">{t("noImage")}</div>
         )}
       </div>
       {images.length > 1 && (

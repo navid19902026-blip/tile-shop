@@ -1,8 +1,10 @@
 import { notFound, redirect } from "next/navigation";
-import Link from "next/link";
+import { getTranslations, getLocale } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { formatToman, ORDER_STATUS_LABELS, PRODUCT_UNIT_LABELS, toPersianDigits } from "@/lib/utils";
+import { formatPrice, formatNumber, formatDate } from "@/lib/utils";
+import { localizedName } from "@/lib/product-i18n";
 
 export default async function OrderDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -15,16 +17,20 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
   });
   if (!order) notFound();
 
+  const t = await getTranslations();
+  const locale = await getLocale();
+  const separator = locale === "fa" ? "، " : ", ";
+
   const steps = ["PENDING_PAYMENT", "PROCESSING", "SHIPPED", "DELIVERED"];
   const currentStep = steps.indexOf(order.status);
 
   return (
     <div>
       <Link href="/account/orders" className="mb-4 inline-block text-xs text-slate-400 hover:text-brand-600">
-        ← بازگشت به سفارش‌ها
+        {t("account.backToOrders")}
       </Link>
-      <h1 className="mb-1 text-lg font-extrabold text-slate-900">سفارش #{order.id.slice(-6)}</h1>
-      <p className="mb-6 text-xs text-slate-400">ثبت‌شده در {new Date(order.createdAt).toLocaleDateString("fa-IR")}</p>
+      <h1 className="mb-1 text-lg font-extrabold text-slate-900">{t("account.orderNumber", { id: order.id.slice(-6) })}</h1>
+      <p className="mb-6 text-xs text-slate-400">{t("account.orderedOn", { date: formatDate(order.createdAt, locale) })}</p>
 
       {order.status !== "CANCELED" && (
         <div className="mb-8 flex items-center">
@@ -35,7 +41,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
                   i <= currentStep ? "bg-brand-500 text-white" : "bg-slate-100 text-slate-400"
                 }`}
               >
-                {toPersianDigits(i + 1)}
+                {formatNumber(i + 1, locale)}
               </div>
               {i < steps.length - 1 && <div className={`h-0.5 flex-1 ${i < currentStep ? "bg-brand-500" : "bg-slate-100"}`} />}
             </div>
@@ -44,7 +50,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
       )}
       <div className="mb-8 grid grid-cols-4 gap-1 text-center text-[11px] text-slate-400">
         {steps.map((s) => (
-          <span key={s}>{ORDER_STATUS_LABELS[s]}</span>
+          <span key={s}>{t(`orderStatus.${s}`)}</span>
         ))}
       </div>
 
@@ -53,29 +59,29 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
           {order.items.map((item) => (
             <div key={item.id} className="flex items-center justify-between rounded-2xl border border-slate-100 p-3 text-sm">
               <div>
-                <div className="font-medium text-slate-800">{item.product.name}</div>
+                <div className="font-medium text-slate-800">{localizedName(item.product, locale)}</div>
                 <div className="text-xs text-slate-400">
-                  {toPersianDigits(item.quantity)} × {formatToman(item.unitPrice)} ({PRODUCT_UNIT_LABELS[item.product.unit]})
+                  {formatNumber(item.quantity, locale)} × {formatPrice(item.unitPrice, locale)} ({t(`units.${item.product.unit}`)})
                 </div>
               </div>
-              <div className="font-bold text-slate-800">{formatToman(item.totalPrice)}</div>
+              <div className="font-bold text-slate-800">{formatPrice(item.totalPrice, locale)}</div>
             </div>
           ))}
         </div>
 
         <div className="h-fit space-y-3 rounded-2xl border border-slate-100 p-4 text-sm">
-          <Row label="جمع کالاها" value={formatToman(order.subtotal)} />
-          {order.discountAmount > 0 && <Row label="تخفیف" value={`-${formatToman(order.discountAmount)}`} />}
-          <Row label="هزینه ارسال" value={formatToman(order.shippingCost)} />
+          <Row label={t("checkout.items")} value={formatPrice(order.subtotal, locale)} />
+          {order.discountAmount > 0 && <Row label={t("checkout.discount")} value={`-${formatPrice(order.discountAmount, locale)}`} />}
+          <Row label={t("checkout.shippingCost")} value={formatPrice(order.shippingCost, locale)} />
           <div className="border-t border-slate-100 pt-3">
-            <Row label="مبلغ نهایی" value={formatToman(order.totalAmount)} bold />
+            <Row label={t("account.finalAmount")} value={formatPrice(order.totalAmount, locale)} bold />
           </div>
           {order.pointsEarned > 0 && (
-            <p className="text-xs text-emerald-600">شما {toPersianDigits(order.pointsEarned)} امتیاز از این خرید دریافت کردید.</p>
+            <p className="text-xs text-emerald-600">{t("account.pointsEarnedNote", { points: formatNumber(order.pointsEarned, locale) })}</p>
           )}
           <div className="border-t border-slate-100 pt-3 text-xs text-slate-500">
-            <div className="mb-1 font-bold text-slate-700">آدرس گیرنده</div>
-            {order.address.fullName} — {order.address.province}، {order.address.city}
+            <div className="mb-1 font-bold text-slate-700">{t("account.shippingAddress")}</div>
+            {order.address.fullName} — {[order.address.province, order.address.city].join(separator)}
             <br />
             {order.address.addressLine}
           </div>

@@ -3,11 +3,15 @@ import { Star } from "lucide-react";
 import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { formatPrice } from "@/lib/utils";
+import { localizedName } from "@/lib/product-i18n";
 import AddToCartButton from "./add-to-cart-button";
 
 export type ProductCardData = {
   id: string;
   name: string;
+  nameEn?: string | null;
+  nameAz?: string | null;
+  nameKa?: string | null;
   slug: string;
   price: number;
   unit: string;
@@ -23,6 +27,7 @@ export default async function ProductCard({ product }: { product: ProductCardDat
   const image = product.images[0];
   const t = await getTranslations();
   const locale = await getLocale();
+  const name = localizedName(product, locale);
 
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white transition hover:shadow-lg">
@@ -30,7 +35,7 @@ export default async function ProductCard({ product }: { product: ProductCardDat
         {image ? (
           <Image
             src={image.url}
-            alt={image.alt ?? product.name}
+            alt={image.alt ?? name}
             fill
             sizes="(max-width: 768px) 50vw, 25vw"
             className="object-cover transition duration-300 group-hover:scale-105"
@@ -53,7 +58,7 @@ export default async function ProductCard({ product }: { product: ProductCardDat
 
       <div className="flex flex-1 flex-col gap-1.5 p-3">
         <Link href={`/products/${product.slug}`} className="line-clamp-2 min-h-[2.5rem] text-sm font-medium text-slate-800 hover:text-brand-600">
-          {product.name}
+          {name}
         </Link>
 
         {typeof product.avgRating === "number" && product.reviewCount ? (
@@ -74,7 +79,7 @@ export default async function ProductCard({ product }: { product: ProductCardDat
           <AddToCartButton
             product={{
               productId: product.id,
-              name: product.name,
+              name,
               slug: product.slug,
               image: image?.url ?? null,
               price: product.price,

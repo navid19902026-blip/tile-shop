@@ -44,7 +44,7 @@ export default function CoverageCalculator({
             step="0.1"
             value={length}
             onChange={(e) => setLength(e.target.value)}
-            placeholder={locale === "fa" ? "مثلاً ۴" : "e.g. 4"}
+            placeholder={`${t("product.calculator.examplePrefix")} ${formatNumber(4, locale)}`}
             className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400"
           />
         </div>
@@ -56,7 +56,7 @@ export default function CoverageCalculator({
             step="0.1"
             value={width}
             onChange={(e) => setWidth(e.target.value)}
-            placeholder={locale === "fa" ? "مثلاً ۳" : "e.g. 3"}
+            placeholder={`${t("product.calculator.examplePrefix")} ${formatNumber(3, locale)}`}
             className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400"
           />
         </div>

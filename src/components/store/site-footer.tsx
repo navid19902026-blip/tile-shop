@@ -39,9 +39,9 @@ export default async function SiteFooter() {
         <div>
           <h3 className="mb-3 text-sm font-bold text-slate-800">{t("footer.contact")}</h3>
           <ul className="space-y-2.5 text-sm text-slate-500">
-            <li className="flex items-center gap-2"><Phone size={15} /> ۰۲۱-۱۲۳۴۵۶۷۸</li>
+            <li className="flex items-center gap-2"><Phone size={15} /> {t("footer.phone")}</li>
             <li className="flex items-center gap-2"><Mail size={15} /> info@parsianceram.example</li>
-            <li className="flex items-center gap-2"><MapPin size={15} /> تهران، خیابان کاشی‌سازان، پلاک ۱</li>
+            <li className="flex items-center gap-2"><MapPin size={15} /> {t("footer.address")}</li>
           </ul>
         </div>
       </div>

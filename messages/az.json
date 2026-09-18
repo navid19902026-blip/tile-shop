@@ -12,7 +12,8 @@
     "adminPanel": "İdarə paneli",
     "logout": "Hesabdan çıxış",
     "menu": "Menyu",
-    "language": "Dil"
+    "language": "Dil",
+    "profile": "Profil"
   },
   "categories": {
     "wall-tile": "Divar kafeli",
@@ -36,10 +37,15 @@
     "categories": "Məhsul kateqoriyaları",
     "contact": "Bizimlə əlaqə",
     "trackOrder": "Sifarişi izlə",
-    "rights": "Bütün hüquqlar Parsian Ceram mağazasına məxsusdur."
+    "rights": "Bütün hüquqlar Parsian Ceram mağazasına məxsusdur.",
+    "phone": "021-12345678",
+    "address": "Tehran, Kaşi-sazan küçəsi, 1 saylı bina"
   },
   "home": {
     "hero": {
+      "prevSlide": "Əvvəlki slayd",
+      "nextSlide": "Növbəti slayd",
+      "goToSlide": "{n}-ci slayda keç",
       "mainEyebrow": "Bütün ölkəyə çatdırılma və Qafqaza ixracat",
       "mainTitle": "Parsian Ceram",
       "mainDescription": "Divar kafeli, döşəmə kafeli, keramika və farfor növlərinin peşəkar onlayn mağazası — orijinallıq zəmanəti və pulsuz məsləhət ilə.",
@@ -108,7 +114,9 @@
     "antiSlip": "Sürüşməyə qarşı",
     "yes": "Var",
     "no": "Yoxdur",
+    "noImage": "Şəkil yoxdur",
     "calculator": {
+      "examplePrefix": "məsələn",
       "title": "Lazımi sahə kalkulyatoru",
       "length": "Sahənin uzunluğu (metr)",
       "width": "Sahənin eni (metr)",
@@ -235,5 +243,71 @@
     "placeholder": "Mesajınızı yazın...",
     "close": "Bağla",
     "widgetLabel": "Dəstək çatı"
+  },
+  "account": {
+    "fullName": "Ad və soyad",
+    "email": "E-poçt",
+    "phone": "Mobil nömrə",
+    "loyaltyTier": "Sadiqlik səviyyəsi",
+    "joinDate": "Qeydiyyat tarixi",
+    "noAddresses": "Hələ ünvan əlavə etməmisiniz",
+    "default": "Standart",
+    "postalCode": "Poçt indeksi",
+    "contact": "Əlaqə",
+    "noOrders": "Hələ sifariş verməmisiniz",
+    "orderNumber": "Sifariş #{id}",
+    "itemsCount": "{count} məhsul",
+    "backToOrders": "← Sifarişlərə qayıt",
+    "orderedOn": "{date} tarixində qeydə alınıb",
+    "finalAmount": "Yekun məbləğ",
+    "pointsEarnedNote": "Bu alışdan {points} bal qazandınız.",
+    "shippingAddress": "Çatdırılma ünvanı",
+    "currentTier": "Cari səviyyə",
+    "currentPoints": "Cari bal",
+    "pointsUnit": "bal",
+    "totalPurchase": "Ümumi alış",
+    "toNextTier": "{tier} səviyyəsinə qədər",
+    "atHighestTier": "Siz ən yüksək səviyyəyə çatmısınız",
+    "loyaltyDiscountNote": "{tier} səviyyəli müştəri olaraq, hər alışda {percent}% xüsusi endirim əldə edirsiniz.",
+    "pointsRuleNote": "Hər {toman} xərcə görə 1 bal qazanırsınız. Hər bal {value} endirimə bərabərdir və ödəniş zamanı istifadə edə bilərsiniz.",
+    "pointsHistory": "Bal tarixçəsi",
+    "noPointsHistory": "Hələ bal tranzaksiyası yoxdur.",
+    "earnPoints": "Bal qazanma",
+    "redeemPoints": "Bal istifadəsi",
+    "addressSaved": "Ünvan uğurla qeydə alındı",
+    "addAddress": "Yeni ünvan əlavə et",
+    "newAddress": "Yeni ünvan",
+    "recipientName": "Alıcının adı",
+    "phoneNumber": "Əlaqə nömrəsi",
+    "province": "Vilayət",
+    "city": "Şəhər",
+    "fullAddress": "Tam ünvan",
+    "setAsDefault": "Standart ünvan kimi təyin et",
+    "saving": "Qeydə alınır...",
+    "saveAddress": "Ünvanı qeyd et",
+    "defaultAddressChanged": "Standart ünvan dəyişdirildi",
+    "addressDeleted": "Ünvan silindi",
+    "deleteAddress": "Ünvanı sil"
+  },
+  "orderStatus": {
+    "PENDING_PAYMENT": "Ödəniş gözlənilir",
+    "PROCESSING": "İşlənir",
+    "SHIPPED": "Göndərildi",
+    "DELIVERED": "Çatdırıldı",
+    "CANCELED": "Ləğv edildi"
+  },
+  "errors": {
+    "loginRequired": "Əvvəlcə hesabınıza daxil olun",
+    "invalidOrderData": "Sifariş məlumatları etibarsızdır",
+    "invalidAddress": "Seçilmiş ünvan etibarlı deyil",
+    "productsNotFound": "Bəzi məhsullar tapılmadı",
+    "insufficientStock": "\"{product}\" üçün stok kifayət deyil",
+    "invalidDiscountCode": "Endirim kodu etibarsızdır və ya müddəti bitib",
+    "discountCodeExhausted": "Bu endirim kodunun istifadə limiti dolub",
+    "minOrderForDiscount": "Bu kod üçün minimum sifariş məbləği {amount}-dir",
+    "reviewLoginRequired": "Rəy yazmaq üçün əvvəlcə hesabınıza daxil olun.",
+    "reviewInvalid": "Zəhmət olmasa reytinq və rəyinizi düzgün daxil edin.",
+    "invalidInput": "Daxil edilən məlumat etibarsızdır",
+    "userAlreadyExists": "Bu məlumatlarla artıq istifadəçi qeydiyyatdan keçib"
   }
 }

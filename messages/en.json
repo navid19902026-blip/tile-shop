@@ -12,7 +12,8 @@
     "adminPanel": "Admin Panel",
     "logout": "Log out",
     "menu": "Menu",
-    "language": "Language"
+    "language": "Language",
+    "profile": "Profile"
   },
   "categories": {
     "wall-tile": "Wall Tile",
@@ -36,10 +37,15 @@
     "categories": "Product Categories",
     "contact": "Contact Us",
     "trackOrder": "Track Order",
-    "rights": "All rights reserved to Parsian Ceram."
+    "rights": "All rights reserved to Parsian Ceram.",
+    "phone": "021-12345678",
+    "address": "Tehran, Kashi-sazan St., No. 1"
   },
   "home": {
     "hero": {
+      "prevSlide": "Previous slide",
+      "nextSlide": "Next slide",
+      "goToSlide": "Go to slide {n}",
       "mainEyebrow": "Nationwide shipping and export to the Caucasus",
       "mainTitle": "Parsian Ceram",
       "mainDescription": "Your specialist online store for wall tile, floor tile, ceramic and porcelain — with an authenticity guarantee and free consultation.",
@@ -108,7 +114,9 @@
     "antiSlip": "Anti-Slip",
     "yes": "Yes",
     "no": "No",
+    "noImage": "No Image",
     "calculator": {
+      "examplePrefix": "e.g.",
       "title": "Coverage Calculator",
       "length": "Room Length (m)",
       "width": "Room Width (m)",
@@ -235,5 +243,71 @@
     "placeholder": "Write your message...",
     "close": "Close",
     "widgetLabel": "Support Chat"
+  },
+  "account": {
+    "fullName": "Full Name",
+    "email": "Email",
+    "phone": "Mobile Number",
+    "loyaltyTier": "Loyalty Tier",
+    "joinDate": "Join Date",
+    "noAddresses": "You haven't added any address yet",
+    "default": "Default",
+    "postalCode": "Postal Code",
+    "contact": "Contact",
+    "noOrders": "You haven't placed any order yet",
+    "orderNumber": "Order #{id}",
+    "itemsCount": "{count} items",
+    "backToOrders": "← Back to orders",
+    "orderedOn": "Placed on {date}",
+    "finalAmount": "Final Amount",
+    "pointsEarnedNote": "You earned {points} points from this purchase.",
+    "shippingAddress": "Shipping Address",
+    "currentTier": "Current Tier",
+    "currentPoints": "Current Points",
+    "pointsUnit": "points",
+    "totalPurchase": "Total Purchases",
+    "toNextTier": "To {tier} tier",
+    "atHighestTier": "You've reached the highest tier",
+    "loyaltyDiscountNote": "As a {tier}-tier customer, you get a {percent}% special discount on every purchase.",
+    "pointsRuleNote": "You earn 1 point for every {toman} spent. Each point is worth {value} in discount and can be redeemed at checkout.",
+    "pointsHistory": "Points History",
+    "noPointsHistory": "No point transactions yet.",
+    "earnPoints": "Points Earned",
+    "redeemPoints": "Points Redeemed",
+    "addressSaved": "Address saved successfully",
+    "addAddress": "Add New Address",
+    "newAddress": "New Address",
+    "recipientName": "Recipient Name",
+    "phoneNumber": "Phone Number",
+    "province": "Province",
+    "city": "City",
+    "fullAddress": "Full Address",
+    "setAsDefault": "Set as default address",
+    "saving": "Saving...",
+    "saveAddress": "Save Address",
+    "defaultAddressChanged": "Default address updated",
+    "addressDeleted": "Address deleted",
+    "deleteAddress": "Delete address"
+  },
+  "orderStatus": {
+    "PENDING_PAYMENT": "Pending Payment",
+    "PROCESSING": "Processing",
+    "SHIPPED": "Shipped",
+    "DELIVERED": "Delivered",
+    "CANCELED": "Canceled"
+  },
+  "errors": {
+    "loginRequired": "Please sign in to your account first",
+    "invalidOrderData": "Invalid order data",
+    "invalidAddress": "The selected address is not valid",
+    "productsNotFound": "Some products were not found",
+    "insufficientStock": "Insufficient stock for \"{product}\"",
+    "invalidDiscountCode": "The discount code is invalid or expired",
+    "discountCodeExhausted": "This discount code has reached its usage limit",
+    "minOrderForDiscount": "The minimum order amount for this code is {amount}",
+    "reviewLoginRequired": "Please sign in to your account to write a review.",
+    "reviewInvalid": "Please enter your rating and review correctly.",
+    "invalidInput": "The information entered is invalid",
+    "userAlreadyExists": "A user with this information is already registered"
   }
 }

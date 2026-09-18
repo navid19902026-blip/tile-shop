@@ -11,9 +11,9 @@ export async function generateMetadata() {
 }
 
 export default async function BrandsPage() {
-  const brands = await getFeaturedBrandsWithStats();
-  const t = await getTranslations("brandsPage");
   const locale = await getLocale();
+  const brands = await getFeaturedBrandsWithStats(locale);
+  const t = await getTranslations("brandsPage");
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10">

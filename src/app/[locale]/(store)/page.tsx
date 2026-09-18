@@ -3,7 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { ArrowLeft, ShieldCheck, Truck, BadgePercent, Headset, Sparkles, Package, BadgeCheck, Globe2 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getFeaturedProducts, getNewProducts } from "@/lib/products";
-import { FEATURED_BRANDS } from "@/lib/brands";
+import { FEATURED_BRANDS, brandName } from "@/lib/brands";
 import ProductCard from "@/components/store/product-card";
 import CategoryCard from "@/components/store/category-card";
 import HeroBanner, { type BannerSlide } from "@/components/store/hero-banner";
@@ -112,18 +112,21 @@ export default async function HomePage() {
           viewAllLabel={t("home.viewAll")}
         />
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
-          {FEATURED_BRANDS.map((b) => (
-            <Link
-              key={b.name}
-              href={`/products?brand=${encodeURIComponent(b.name)}`}
-              className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-slate-100 py-6 text-sm font-bold text-slate-700 transition hover:border-brand-300 hover:text-brand-600"
-            >
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-50 text-sm font-extrabold text-brand-600">
-                {b.name[0]}
-              </span>
-              {b.name}
-            </Link>
-          ))}
+          {FEATURED_BRANDS.map((b) => {
+            const label = brandName(b.name, locale);
+            return (
+              <Link
+                key={b.name}
+                href={`/products?brand=${encodeURIComponent(b.name)}`}
+                className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-slate-100 py-6 text-sm font-bold text-slate-700 transition hover:border-brand-300 hover:text-brand-600"
+              >
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-50 text-sm font-extrabold text-brand-600">
+                  {label[0]}
+                </span>
+                {label}
+              </Link>
+            );
+          })}
         </div>
       </section>
 

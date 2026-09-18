@@ -3,8 +3,10 @@
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, ChevronRight, ChevronLeft } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { ArrowLeft, ArrowRight, ChevronRight, ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { RTL_LOCALES } from "@/i18n/routing";
 
 export type BannerSlide = {
   id: string;
@@ -21,6 +23,9 @@ const AUTO_ADVANCE_MS = 5000;
 
 export default function HeroBanner({ slides }: { slides: BannerSlide[] }) {
   const [index, setIndex] = useState(0);
+  const t = useTranslations("home.hero");
+  const locale = useLocale();
+  const isRtl = (RTL_LOCALES as readonly string[]).includes(locale);
 
   const next = useCallback(() => setIndex((i) => (i + 1) % slides.length), [slides.length]);
   const prev = useCallback(() => setIndex((i) => (i - 1 + slides.length) % slides.length), [slides.length]);
@@ -59,7 +64,7 @@ export default function HeroBanner({ slides }: { slides: BannerSlide[] }) {
               className="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-bold text-brand-600 transition hover:bg-brand-50"
             >
               {slide.ctaLabel}
-              <ArrowLeft size={16} />
+              {isRtl ? <ArrowLeft size={16} /> : <ArrowRight size={16} />}
             </Link>
           </div>
           <div className="hidden justify-self-end md:block">
@@ -76,17 +81,23 @@ export default function HeroBanner({ slides }: { slides: BannerSlide[] }) {
           <>
             <button
               onClick={prev}
-              aria-label="اسلاید قبلی"
-              className="absolute right-3 top-1/2 hidden -translate-y-1/2 rounded-full bg-white/15 p-2 backdrop-blur transition hover:bg-white/25 sm:flex"
+              aria-label={t("prevSlide")}
+              className={cn(
+                "absolute top-1/2 hidden -translate-y-1/2 rounded-full bg-white/15 p-2 backdrop-blur transition hover:bg-white/25 sm:flex",
+                isRtl ? "right-3" : "left-3"
+              )}
             >
-              <ChevronRight size={18} />
+              {isRtl ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
             </button>
             <button
               onClick={next}
-              aria-label="اسلاید بعدی"
-              className="absolute left-3 top-1/2 hidden -translate-y-1/2 rounded-full bg-white/15 p-2 backdrop-blur transition hover:bg-white/25 sm:flex"
+              aria-label={t("nextSlide")}
+              className={cn(
+                "absolute top-1/2 hidden -translate-y-1/2 rounded-full bg-white/15 p-2 backdrop-blur transition hover:bg-white/25 sm:flex",
+                isRtl ? "left-3" : "right-3"
+              )}
             >
-              <ChevronLeft size={18} />
+              {isRtl ? <ChevronLeft size={18} /> : <ChevronRight size={18} />}
             </button>
 
             <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-1.5">
@@ -94,7 +105,7 @@ export default function HeroBanner({ slides }: { slides: BannerSlide[] }) {
                 <button
                   key={s.id}
                   onClick={() => setIndex(i)}
-                  aria-label={`رفتن به اسلاید ${i + 1}`}
+                  aria-label={t("goToSlide", { n: i + 1 })}
                   className={cn(
                     "h-1.5 rounded-full transition-all",
                     i === index ? "w-6 bg-white" : "w-1.5 bg-white/40 hover:bg-white/60"

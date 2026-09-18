@@ -4,6 +4,8 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { Star, Truck, ShieldCheck } from "lucide-react";
 import { getProductBySlug, getRelatedProducts } from "@/lib/products";
 import { formatPrice, formatNumber } from "@/lib/utils";
+import { localizedName, localizedDescription, colorName, materialName, usageName } from "@/lib/product-i18n";
+import { brandName } from "@/lib/brands";
 import ProductGallery from "@/components/store/product-gallery";
 import AddToCartButton from "@/components/store/add-to-cart-button";
 import ProductCard from "@/components/store/product-card";
@@ -16,9 +18,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const product = await getProductBySlug(slug);
   if (!product) return {};
+  const locale = await getLocale();
   return {
-    title: product.name,
-    description: product.description.slice(0, 150),
+    title: localizedName(product, locale),
+    description: localizedDescription(product, locale).slice(0, 150),
   };
 }
 
@@ -30,28 +33,30 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const related = await getRelatedProducts(product.categoryId, product.id);
   const t = await getTranslations();
   const locale = await getLocale();
+  const name = localizedName(product, locale);
+  const description = localizedDescription(product, locale);
 
   const categoryLabel = KNOWN_CATEGORY_SLUGS.includes(product.category.slug)
     ? t(`categories.${product.category.slug}`)
     : product.category.name;
 
   const specs: { label: string; value: string }[] = [
-    product.brand ? { label: t("product.brand"), value: product.brand } : null,
+    product.brand ? { label: t("product.brand"), value: brandName(product.brand, locale) } : null,
     product.size ? { label: t("product.size"), value: product.size } : null,
-    product.color ? { label: t("product.color"), value: product.color } : null,
-    product.material ? { label: t("product.material"), value: product.material } : null,
-    product.usage ? { label: t("product.usage"), value: product.usage } : null,
+    product.color ? { label: t("product.color"), value: colorName(product.color, locale) } : null,
+    product.material ? { label: t("product.material"), value: materialName(product.material, locale) } : null,
+    product.usage ? { label: t("product.usage"), value: usageName(product.usage, locale) } : null,
     { label: t("product.antiSlip"), value: product.antiSlip ? t("product.yes") : t("product.no") },
   ].filter(Boolean) as { label: string; value: string }[];
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-        <ProductGallery images={product.images} productName={product.name} />
+        <ProductGallery images={product.images} productName={name} />
 
         <div>
           <p className="text-sm text-brand-600">{categoryLabel}</p>
-          <h1 className="mt-1 text-2xl font-extrabold text-slate-900">{product.name}</h1>
+          <h1 className="mt-1 text-2xl font-extrabold text-slate-900">{name}</h1>
 
           {product.reviewCount ? (
             <div className="mt-2 flex items-center gap-1.5 text-sm text-slate-500">
@@ -79,7 +84,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <AddToCartButton
               product={{
                 productId: product.id,
-                name: product.name,
+                name,
                 slug: product.slug,
                 image: product.images[0]?.url ?? null,
                 price: product.price,
@@ -112,7 +117,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <CoverageCalculator
               product={{
                 productId: product.id,
-                name: product.name,
+                name,
                 slug: product.slug,
                 image: product.images[0]?.url ?? null,
                 price: product.price,
@@ -126,7 +131,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
       <div className="mt-10">
         <h2 className="mb-3 text-lg font-extrabold text-slate-900">{t("product.description")}</h2>
-        <p className="whitespace-pre-line text-sm leading-8 text-slate-600">{product.description}</p>
+        <p className="whitespace-pre-line text-sm leading-8 text-slate-600">{description}</p>
       </div>
 
       <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-[1fr_320px]">

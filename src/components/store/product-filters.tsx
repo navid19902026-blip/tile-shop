@@ -5,6 +5,8 @@ import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { SlidersHorizontal, X } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
+import { colorName } from "@/lib/product-i18n";
+import { brandName } from "@/lib/brands";
 
 type FilterOptions = {
   brands: string[];
@@ -55,7 +57,7 @@ export default function ProductFilters({ options }: { options: FilterOptions }) 
       {options.brands.length > 0 && (
         <FilterGroup title={t("brand")}>
           {options.brands.map((b) => (
-            <CheckboxRow key={b} label={b} checked={selected.brand.includes(b)} onChange={() => toggleMulti("brand", b)} />
+            <CheckboxRow key={b} label={brandName(b, locale)} checked={selected.brand.includes(b)} onChange={() => toggleMulti("brand", b)} />
           ))}
         </FilterGroup>
       )}
@@ -71,7 +73,7 @@ export default function ProductFilters({ options }: { options: FilterOptions }) 
       {options.colors.length > 0 && (
         <FilterGroup title={t("color")}>
           {options.colors.map((c) => (
-            <CheckboxRow key={c} label={c} checked={selected.color.includes(c)} onChange={() => toggleMulti("color", c)} />
+            <CheckboxRow key={c} label={colorName(c, locale)} checked={selected.color.includes(c)} onChange={() => toggleMulti("color", c)} />
           ))}
         </FilterGroup>
       )}

@@ -1,9 +1,10 @@
 import { redirect } from "next/navigation";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Award, TrendingUp, Gift } from "lucide-react";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getLoyaltySettings, tierDiscountPercent } from "@/lib/loyalty";
-import { formatToman, TIER_LABELS, toPersianDigits } from "@/lib/utils";
+import { formatPrice, formatNumber, formatDate } from "@/lib/utils";
 
 const TIER_ORDER = ["BRONZE", "SILVER", "GOLD"] as const;
 
@@ -20,6 +21,8 @@ export default async function LoyaltyPage() {
       take: 20,
     }),
   ]);
+  const t = await getTranslations();
+  const locale = await getLocale();
 
   const tierPercent = tierDiscountPercent(user.tier, settings);
   const currentIndex = TIER_ORDER.indexOf(user.tier);
@@ -29,24 +32,22 @@ export default async function LoyaltyPage() {
 
   return (
     <div>
-      <h1 className="mb-6 text-lg font-extrabold text-slate-900">باشگاه مشتریان</h1>
+      <h1 className="mb-6 text-lg font-extrabold text-slate-900">{t("nav.loyaltyClub")}</h1>
 
       <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
-        <StatCard icon={<Award size={20} />} label="سطح فعلی" value={TIER_LABELS[user.tier]} />
-        <StatCard icon={<Gift size={20} />} label="امتیاز فعلی" value={`${toPersianDigits(user.loyaltyPoints)} امتیاز`} />
-        <StatCard icon={<TrendingUp size={20} />} label="مجموع خرید" value={formatToman(user.totalPurchase)} />
+        <StatCard icon={<Award size={20} />} label={t("account.currentTier")} value={t(`tiers.${user.tier}`)} />
+        <StatCard icon={<Gift size={20} />} label={t("account.currentPoints")} value={`${formatNumber(user.loyaltyPoints, locale)} ${t("account.pointsUnit")}`} />
+        <StatCard icon={<TrendingUp size={20} />} label={t("account.totalPurchase")} value={formatPrice(user.totalPurchase, locale)} />
       </div>
 
       <div className="mb-6 rounded-2xl border border-slate-100 p-5">
         <div className="mb-3 flex items-center justify-between text-sm">
           <span className="font-bold text-slate-800">
-            {nextTier
-              ? `تا سطح ${TIER_LABELS[nextTier]}`
-              : "شما به بالاترین سطح رسیده‌اید"}
+            {nextTier ? t("account.toNextTier", { tier: t(`tiers.${nextTier}`) }) : t("account.atHighestTier")}
           </span>
           {nextThreshold && (
             <span className="text-slate-400">
-              {formatToman(user.totalPurchase)} از {formatToman(nextThreshold)}
+              {formatPrice(user.totalPurchase, locale)} / {formatPrice(nextThreshold, locale)}
             </span>
           )}
         </div>
@@ -55,28 +56,33 @@ export default async function LoyaltyPage() {
         </div>
         {tierPercent > 0 && (
           <p className="mt-3 text-xs text-emerald-600">
-            به‌عنوان مشتری {TIER_LABELS[user.tier]}، {toPersianDigits(tierPercent)}٪ تخفیف ویژه در هر خرید دریافت می‌کنید.
+            {t("account.loyaltyDiscountNote", { tier: t(`tiers.${user.tier}`), percent: formatNumber(tierPercent, locale) })}
           </p>
         )}
       </div>
 
       <div className="mb-6 rounded-2xl border border-brand-100 bg-brand-50/40 p-4 text-sm text-slate-600">
-        به ازای هر {formatToman(settings.pointsPerToman)} خرید، ۱ امتیاز دریافت می‌کنید. هر امتیاز معادل {formatToman(settings.pointValueInToman)}{" "}
-        تخفیف است و می‌توانید در زمان تسویه‌حساب از آن استفاده کنید.
+        {t("account.pointsRuleNote", {
+          toman: formatPrice(settings.pointsPerToman, locale),
+          value: formatPrice(settings.pointValueInToman, locale),
+        })}
       </div>
 
-      <h2 className="mb-3 text-sm font-bold text-slate-800">تاریخچه امتیازها</h2>
+      <h2 className="mb-3 text-sm font-bold text-slate-800">{t("account.pointsHistory")}</h2>
       <div className="space-y-2">
-        {transactions.length === 0 && <p className="text-sm text-slate-400">هنوز تراکنش امتیازی ثبت نشده است.</p>}
+        {transactions.length === 0 && <p className="text-sm text-slate-400">{t("account.noPointsHistory")}</p>}
         {transactions.map((tx) => (
           <div key={tx.id} className="flex items-center justify-between rounded-xl border border-slate-100 p-3 text-sm">
             <div>
-              <div className="text-slate-700">{tx.description ?? (tx.type === "EARN" ? "کسب امتیاز" : "مصرف امتیاز")}</div>
-              <div className="text-xs text-slate-400">{new Date(tx.createdAt).toLocaleDateString("fa-IR")}</div>
+              <div className="text-slate-700">
+                {tx.description ?? (tx.type === "EARN" ? t("account.earnPoints") : t("account.redeemPoints"))}
+                {tx.orderId && ` #${tx.orderId.slice(-6)}`}
+              </div>
+              <div className="text-xs text-slate-400">{formatDate(tx.createdAt, locale)}</div>
             </div>
             <div className={`font-bold ${tx.type === "EARN" ? "text-emerald-600" : "text-red-500"}`}>
               {tx.type === "EARN" ? "+" : "-"}
-              {toPersianDigits(tx.points)}
+              {formatNumber(tx.points, locale)}
             </div>
           </div>
         ))}
