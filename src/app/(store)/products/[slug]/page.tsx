@@ -7,6 +7,7 @@ import ProductGallery from "@/components/store/product-gallery";
 import AddToCartButton from "@/components/store/add-to-cart-button";
 import ProductCard from "@/components/store/product-card";
 import ReviewForm from "@/components/store/review-form";
+import CoverageCalculator from "@/components/store/coverage-calculator";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -93,6 +94,20 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               </dl>
             </div>
           )}
+
+          <div className="mt-6">
+            <CoverageCalculator
+              product={{
+                productId: product.id,
+                name: product.name,
+                slug: product.slug,
+                image: product.images[0]?.url ?? null,
+                price: product.price,
+                unit: product.unit,
+                stock: product.stock,
+              }}
+            />
+          </div>
         </div>
       </div>
 

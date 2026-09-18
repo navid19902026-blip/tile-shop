@@ -5,7 +5,41 @@ import { getFeaturedProducts, getNewProducts } from "@/lib/products";
 import { FEATURED_BRANDS } from "@/lib/brands";
 import ProductCard from "@/components/store/product-card";
 import CategoryCard from "@/components/store/category-card";
+import HeroBanner, { type BannerSlide } from "@/components/store/hero-banner";
 import { toPersianDigits } from "@/lib/utils";
+
+const HERO_SLIDES: BannerSlide[] = [
+  {
+    id: "main",
+    eyebrow: "ارسال به سراسر کشور و صادرات به قفقاز",
+    title: "Parsian Ceram",
+    description: "مرجع تخصصی خرید آنلاین انواع کاشی دیوار، کاشی کف، سرامیک و پرسلان با گارانتی اصالت کالا و مشاوره رایگان.",
+    ctaLabel: "مشاهده محصولات",
+    ctaHref: "/products",
+    image: "/uploads/brands/alvand-1.jpg",
+    gradient: "from-brand-600 to-brand-400",
+  },
+  {
+    id: "brands",
+    eyebrow: "نمایندگی رسمی",
+    title: "۱۰ برند برتر کاشی و سرامیک ایران، زیر یک سقف",
+    description: "الوند، تبریز، مرجان، پرسپولیس، نیلو، سینا، گلدیس، نوین‌سرام، پاسارگاد و تک‌سرام؛ تمام محصولات با ضمانت اصالت کالا.",
+    ctaLabel: "مشاهده برندها",
+    ctaHref: "/brands",
+    image: "/uploads/brands/marjan-1.jpg",
+    gradient: "from-slate-900 to-slate-700",
+  },
+  {
+    id: "loyalty",
+    eyebrow: "باشگاه مشتریان",
+    title: "با هر خرید، امتیاز بگیرید و تخفیف ویژه دریافت کنید",
+    description: "اعضای سطح طلایی باشگاه مشتریان تا ۷٪ تخفیف خودکار روی هر سفارش دریافت می‌کنند.",
+    ctaLabel: "عضویت در باشگاه مشتریان",
+    ctaHref: "/auth/register",
+    image: "/uploads/brands/goldis-4.jpg",
+    gradient: "from-emerald-700 to-teal-500",
+  },
+];
 
 export default async function HomePage() {
   const [categories, featured, latest, productCount] = await Promise.all([
@@ -17,47 +51,16 @@ export default async function HomePage() {
 
   return (
     <div>
-      <section className="relative overflow-hidden bg-gradient-to-l from-brand-600 to-brand-400 text-white">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 py-14 md:grid-cols-2 md:py-20">
-          <div>
-            <span className="mb-3 inline-block rounded-full bg-white/15 px-3 py-1 text-xs font-medium">
-              ارسال به سراسر کشور
-            </span>
-            <h1 className="text-3xl font-extrabold leading-relaxed md:text-4xl">
-              Parsian Ceram
-              <br />
-              زیبایی و دوام، برای خانه‌ی شما
-            </h1>
-            <p className="mt-4 max-w-md text-sm leading-7 text-white/90">
-              مرجع تخصصی خرید آنلاین انواع کاشی دیوار، کاشی کف، سرامیک و پرسلان با گارانتی اصالت کالا و مشاوره رایگان.
-            </p>
-            <Link
-              href="/products"
-              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-bold text-brand-600 transition hover:bg-brand-50"
-            >
-              مشاهده محصولات
-              <ArrowLeft size={16} />
-            </Link>
-          </div>
-          <div className="hidden justify-self-end md:block">
-            <div className="grid grid-cols-2 gap-3">
-              <div className="h-36 w-36 rounded-2xl bg-white/10 backdrop-blur" />
-              <div className="mt-6 h-36 w-36 rounded-2xl bg-white/10 backdrop-blur" />
-              <div className="h-36 w-36 rounded-2xl bg-white/10 backdrop-blur" />
-              <div className="mt-6 h-36 w-36 rounded-2xl bg-white/10 backdrop-blur" />
-            </div>
-          </div>
-        </div>
+      <HeroBanner slides={HERO_SLIDES} />
 
-        <div className="border-t border-white/15 bg-black/10">
-          <div className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-white/15 px-4 sm:grid-cols-4 [&>*]:border-white/15">
-            <StatItem icon={<BadgeCheck size={18} />} value={`+${toPersianDigits(FEATURED_BRANDS.length)}`} label="برند معتبر" />
-            <StatItem icon={<Package size={18} />} value={`+${toPersianDigits(productCount)}`} label="محصول متنوع" />
-            <StatItem icon={<Globe2 size={18} />} value="قفقاز" label="صادرات به" />
-            <StatItem icon={<Sparkles size={18} />} value="۱۰۰٪" label="اصالت کالا" />
-          </div>
+      <div className="border-b border-slate-100 bg-slate-900">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-white/10 px-4 sm:grid-cols-4 [&>*]:border-white/10">
+          <StatItem icon={<BadgeCheck size={18} />} value={`+${toPersianDigits(FEATURED_BRANDS.length)}`} label="برند معتبر" />
+          <StatItem icon={<Package size={18} />} value={`+${toPersianDigits(productCount)}`} label="محصول متنوع" />
+          <StatItem icon={<Globe2 size={18} />} value="قفقاز" label="صادرات به" />
+          <StatItem icon={<Sparkles size={18} />} value="۱۰۰٪" label="اصالت کالا" />
         </div>
-      </section>
+      </div>
 
       <section className="mx-auto max-w-7xl px-4 py-8">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
