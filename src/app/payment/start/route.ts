@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? req.nextUrl.origin;
   const result = await requestPayment({
     amountToman: order.totalAmount,
-    description: `پرداخت سفارش #${order.id.slice(-6)} - کاشی و سرامیک آرمانی`,
+    description: `پرداخت سفارش #${order.id.slice(-6)} - Parsian Ceram`,
     callbackUrl: `${baseUrl}/payment/callback`,
     email: session.user.email ?? undefined,
   });

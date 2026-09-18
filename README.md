@@ -1,4 +1,4 @@
-# کاشی و سرامیک آرمانی
+# Parsian Ceram | پارسیان سرام
 
 فروشگاه آنلاین کاشی و سرامیک، ساخته‌شده با Next.js 14 (App Router)، TypeScript، Tailwind CSS، Prisma/PostgreSQL، NextAuth.js و درگاه پرداخت زرین‌پال.
 
@@ -84,7 +84,7 @@ npm run dev
 
 | نقش | ایمیل | رمز عبور |
 |---|---|---|
-| مدیر | admin@armani-tile.example | password123 |
+| مدیر | admin@parsianceram.example | password123 |
 | مشتری (سطح طلایی) | ali@example.com | password123 |
 | مشتری (سطح نقره‌ای) | sara@example.com | password123 |
 | مشتری (سطح برنزی) | navid@example.com | password123 |

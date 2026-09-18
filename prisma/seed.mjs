@@ -784,10 +784,10 @@ async function main() {
   const passwordHash = await bcrypt.hash("password123", 10);
 
   await prisma.user.upsert({
-    where: { email: "admin@armani-tile.example" },
+    where: { email: "admin@parsianceram.example" },
     create: {
       name: "مدیر فروشگاه",
-      email: "admin@armani-tile.example",
+      email: "admin@parsianceram.example",
       password: passwordHash,
       role: "ADMIN",
     },
@@ -822,7 +822,7 @@ async function main() {
   });
 
   console.log("Seed completed:");
-  console.log("- admin login: admin@armani-tile.example / password123");
+  console.log("- admin login: admin@parsianceram.example / password123");
   console.log("- customer logins: navid@example.com, sara@example.com, ali@example.com / password123");
   console.log("- discount code: WELCOME10 (10% off, min 500,000 toman)");
 }

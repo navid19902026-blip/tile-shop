@@ -12,11 +12,11 @@ const vazirmatn = Vazirmatn({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000"),
   title: {
-    default: "کاشی و سرامیک آرمانی | فروشگاه آنلاین کاشی و سرامیک",
-    template: "%s | کاشی و سرامیک آرمانی",
+    default: "پارسیان سرام | فروشگاه آنلاین کاشی و سرامیک",
+    template: "%s | پارسیان سرام",
   },
   description:
-    "فروشگاه آنلاین کاشی و سرامیک آرمانی؛ خرید کاشی دیوار، کاشی کف، سرامیک و پرسلان با ارسال به سراسر کشور.",
+    "پارسیان سرام (Parsian Ceram)؛ فروشگاه آنلاین کاشی و سرامیک با ارسال به سراسر ایران و صادرات به قفقاز.",
 };
 
 export default function RootLayout({

@@ -7,8 +7,8 @@ export default function SiteFooter() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 py-12 sm:grid-cols-2 md:grid-cols-4">
         <div>
           <div className="mb-3 flex items-center gap-2">
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-500 text-lg font-bold text-white">آ</span>
-            <span className="text-lg font-bold text-slate-900">کاشی و سرامیک آرمانی</span>
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-500 text-lg font-bold text-white">P</span>
+            <span className="text-lg font-bold text-slate-900">Parsian Ceram</span>
           </div>
           <p className="text-sm leading-6 text-slate-500">
             عرضه‌کننده انواع کاشی دیوار، کاشی کف، سرامیک و پرسلان با کیفیت برتر و ارسال به سراسر کشور.
@@ -39,13 +39,13 @@ export default function SiteFooter() {
           <h3 className="mb-3 text-sm font-bold text-slate-800">تماس با ما</h3>
           <ul className="space-y-2.5 text-sm text-slate-500">
             <li className="flex items-center gap-2"><Phone size={15} /> ۰۲۱-۱۲۳۴۵۶۷۸</li>
-            <li className="flex items-center gap-2"><Mail size={15} /> info@armani-tile.example</li>
+            <li className="flex items-center gap-2"><Mail size={15} /> info@parsianceram.example</li>
             <li className="flex items-center gap-2"><MapPin size={15} /> تهران، خیابان کاشی‌سازان، پلاک ۱</li>
           </ul>
         </div>
       </div>
       <div className="border-t border-slate-200 py-4 text-center text-xs text-slate-400">
-        © {new Date().getFullYear()} تمامی حقوق برای فروشگاه کاشی و سرامیک آرمانی محفوظ است.
+        © {new Date().getFullYear()} تمامی حقوق برای فروشگاه Parsian Ceram محفوظ است.
       </div>
     </footer>
   );

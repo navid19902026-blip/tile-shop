@@ -24,7 +24,7 @@ export default async function HomePage() {
               ارسال به سراسر کشور
             </span>
             <h1 className="text-3xl font-extrabold leading-relaxed md:text-4xl">
-              کاشی و سرامیک آرمانی
+              Parsian Ceram
               <br />
               زیبایی و دوام، برای خانه‌ی شما
             </h1>

@@ -18,7 +18,7 @@ export default async function BrandsPage() {
       <div className="mb-8 text-center">
         <h1 className="mb-2 text-2xl font-extrabold text-slate-900">برندهای معتبر کاشی و سرامیک</h1>
         <p className="mx-auto max-w-2xl text-sm text-slate-500">
-          فروشگاه کاشی و سرامیک آرمانی، نماینده رسمی محصولات برترین تولیدکنندگان کاشی و سرامیک ایران است؛
+          فروشگاه Parsian Ceram، نماینده رسمی محصولات برترین تولیدکنندگان کاشی و سرامیک ایران است؛
           برندهایی با سابقه طولانی تولید و صادرات به بازارهای منطقه از جمله قفقاز و گرجستان.
         </p>
       </div>

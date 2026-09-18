@@ -22,8 +22,8 @@ export default async function SiteHeader() {
         <MobileNav categories={categories} />
 
         <Link href="/" className="flex shrink-0 items-center gap-2">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-500 text-lg font-bold text-white">آ</span>
-          <span className="hidden text-lg font-bold text-slate-900 sm:inline">کاشی و سرامیک آرمانی</span>
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-500 text-lg font-bold text-white">P</span>
+          <span className="hidden text-lg font-bold text-slate-900 sm:inline">Parsian Ceram</span>
         </Link>
 
         <SearchBar className="hidden flex-1 md:block" />

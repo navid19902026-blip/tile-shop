@@ -27,7 +27,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div className="flex min-h-screen bg-slate-50">
       <aside className="hidden w-60 shrink-0 border-l border-slate-100 bg-white md:block">
         <div className="flex h-16 items-center gap-2 border-b border-slate-100 px-5">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500 text-sm font-bold text-white">آ</span>
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500 text-sm font-bold text-white">P</span>
           <span className="text-sm font-bold text-slate-800">پنل مدیریت</span>
         </div>
         <nav className="space-y-1 p-3">
