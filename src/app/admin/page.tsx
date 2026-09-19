@@ -2,7 +2,6 @@ import { ShoppingBag, Wallet, Users, Award } from "lucide-react";
 import Link from "next/link";
 import { getDashboardStats } from "@/lib/admin-stats";
 import { formatToman, ORDER_STATUS_LABELS, toPersianDigits } from "@/lib/utils";
-import SalesChart from "@/components/admin/sales-chart";
 
 export default async function AdminDashboardPage() {
   const stats = await getDashboardStats();
@@ -18,12 +17,7 @@ export default async function AdminDashboardPage() {
         <StatCard icon={<Award size={20} />} label="اعضای فعال باشگاه مشتریان" value={toPersianDigits(stats.activeLoyaltyUsers)} />
       </div>
 
-      <div className="mb-6 grid grid-cols-1 gap-4 lg:grid-cols-[1fr_320px]">
-        <div className="rounded-2xl border border-slate-100 bg-white p-5">
-          <h2 className="mb-2 text-sm font-bold text-slate-800">فروش ۱۴ روز اخیر</h2>
-          <SalesChart data={stats.salesChart} />
-        </div>
-
+      <div className="mb-6 grid grid-cols-1 gap-4">
         <div className="rounded-2xl border border-slate-100 bg-white p-5">
           <h2 className="mb-3 text-sm font-bold text-slate-800">پرفروش‌ترین محصولات</h2>
           {stats.bestSellers.length === 0 ? (
