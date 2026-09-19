@@ -97,6 +97,23 @@ html, body {
 .detail-brand { font-size: 12px; color: var(--brand-600); font-weight: 700; margin-bottom: 4px; }
 .detail-name { font-size: 18px; font-weight: 800; margin: 0 0 8px; }
 .detail-price { font-size: 20px; font-weight: 900; margin-bottom: 14px; }
+
+.whatsapp-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #25d366;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 14.5px;
+  padding: 13px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+.whatsapp-btn:active { opacity: .85; }
+.whatsapp-icon { width: 20px; height: 20px; flex-shrink: 0; }
 .detail-specs {
   display: grid;
   grid-template-columns: 1fr 1fr;

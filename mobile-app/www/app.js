@@ -9,6 +9,18 @@
     return toPersianDigits(amount.toLocaleString("en-US")) + " تومان";
   }
   const UNIT_LABEL = { SQUARE_METER: "متر مربع", CARTON: "کارتن", PIECE: "عدد" };
+  const WHATSAPP_NUMBER = "995557746238";
+
+  function whatsappLink(p) {
+    const lines = [
+      "سلام، می‌خواستم درباره این محصول سفارش بدم:",
+      p.name,
+      p.brand ? `برند: ${p.brand}` : null,
+      p.size ? `سایز: ${p.size}` : null,
+      `قیمت: ${formatPrice(p.price)}`,
+    ].filter(Boolean);
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`;
+  }
 
   const gridEl = document.getElementById("grid");
   const tabsEl = document.getElementById("categoryTabs");
@@ -65,6 +77,7 @@
     document.getElementById("detailName").textContent = p.name;
     document.getElementById("detailPrice").textContent =
       formatPrice(p.price) + " / " + (UNIT_LABEL[p.unit] ?? p.unit);
+    document.getElementById("whatsappBtn").href = whatsappLink(p);
     document.getElementById("detailDesc").textContent = p.description;
 
     const specs = [
