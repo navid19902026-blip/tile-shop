@@ -33,6 +33,18 @@
       filterClear: "پاک کردن",
       filterApply: "اعمال فیلتر",
       resultCount: (n) => `${toPersianDigits(n)} محصول`,
+      mainMenu: "منو",
+      menuBrands: "برندها",
+      menuProducts: "محصولات",
+      menuAbout: "درباره ما",
+      menuContact: "ارتباط با ما",
+      aboutTitle: "درباره پارسیان سرام",
+      aboutText: "پارسیان سرام، عرضه‌کننده تخصصی انواع کاشی و سرامیک از برترین برندهای ایرانی است. ما با گردآوری محصولات باکیفیت از کارخانه‌های معتبر کشور، امکان انتخاب و سفارش آسان را برای مشتریان فراهم می‌کنیم. این اپلیکیشن نسخه نمایشی آفلاین کاتالوگ محصولات ماست.",
+      contactTitle: "ارتباط با ما",
+      contactText: "برای مشاوره، استعلام قیمت و ثبت سفارش می‌توانید از طریق واتساپ با ما در ارتباط باشید.",
+      contactPhoneLabel: "شماره تماس",
+      contactWaBtn: "گفتگو در واتساپ",
+      contactWaGreeting: "سلام، می‌خواستم درباره محصولات پارسیان سرام سوال بپرسم.",
     },
     az: {
       brand: "Parsian Ceram",
@@ -62,6 +74,18 @@
       filterClear: "Təmizlə",
       filterApply: "Filtrləri tətbiq et",
       resultCount: (n) => `${n} məhsul`,
+      mainMenu: "Menyu",
+      menuBrands: "Brendlər",
+      menuProducts: "Məhsullar",
+      menuAbout: "Haqqımızda",
+      menuContact: "Əlaqə",
+      aboutTitle: "Parsian Ceram haqqında",
+      aboutText: "Parsian Ceram, İranın aparıcı brendlərindən keyfiyyətli kafel və keramika məhsulları təqdim edən ixtisaslaşmış platformadır. Bu tətbiq məhsul kataloqumuzun oflayn nümayiş versiyasıdır.",
+      contactTitle: "Əlaqə",
+      contactText: "Məsləhət, qiymət sorğusu və sifariş üçün WhatsApp vasitəsilə bizimlə əlaqə saxlaya bilərsiniz.",
+      contactPhoneLabel: "Telefon nömrəsi",
+      contactWaBtn: "WhatsApp-da yazın",
+      contactWaGreeting: "Salam, Parsian Ceram məhsulları haqqında sual vermək istəyirdim.",
     },
   };
 
@@ -82,7 +106,9 @@
     "طوسی تیره": "Tünd boz", "طوسی روشن": "Açıq boz", "خاکستری روشن": "Açıq boz",
     "مشکی": "Qara", "سفید و مشکی": "Ağ-qara", "قرمز": "Qırmızı", "کرم": "Krem",
     "کرم طلایی": "Qızılı krem", "آبی": "Mavi", "صورتی روشن": "Açıq çəhrayı",
-    "قهوه‌ای": "Qəhvəyi", "قهوه‌ای روشن": "Açıq qəhvəyi", "چندرنگ": "Rəngbərəng",
+    "قهوه‌ای": "Qəhvəyi", "قهوه‌ای روشن": "Açıq qəhvəyi", "قهوه‌ای تیره": "Tünd qəhvəyi",
+    "چندرنگ": "Rəngbərəng", "نقره‌ای": "Gümüşü", "سبز": "Yaşıl", "استخوانی": "Sümük rəngi",
+    "طلایی": "Qızılı",
   };
 
   const MATERIAL_LABEL_AZ = { "سرامیک": "Keramika", "پرسلان": "Farfor" };
@@ -152,6 +178,17 @@
   const filterCloseBtn = document.getElementById("filterCloseBtn");
   const filterClearBtn = document.getElementById("filterClearBtn");
   const filterApplyBtn = document.getElementById("filterApplyBtn");
+  const infoEl = document.getElementById("infoView");
+  const menuBtn = document.getElementById("menuBtn");
+  const mainMenuOverlay = document.getElementById("mainMenuOverlay");
+  const mainMenuDrawer = document.getElementById("mainMenuDrawer");
+  const mainMenuCloseBtn = document.getElementById("mainMenuCloseBtn");
+  const menuBrandsBtn = document.getElementById("menuBrandsBtn");
+  const menuProductsBtn = document.getElementById("menuProductsBtn");
+  const menuAboutBtn = document.getElementById("menuAboutBtn");
+  const menuContactBtn = document.getElementById("menuContactBtn");
+
+  let lastInfo = null;
 
   let catalog = { categories: [], products: [] };
 
@@ -176,6 +213,13 @@
     filterClearBtn.textContent = t("filterClear");
     filterApplyBtn.textContent = t("filterApply");
     langBtn.textContent = locale === "fa" ? "AZ" : "FA";
+    document.getElementById("mainMenuTitle").textContent = t("mainMenu");
+    document.getElementById("menuBrandsLabel").textContent = t("menuBrands");
+    document.getElementById("menuProductsLabel").textContent = t("menuProducts");
+    document.getElementById("menuAboutLabel").textContent = t("menuAbout");
+    document.getElementById("menuContactLabel").textContent = t("menuContact");
+    document.getElementById("infoBackArrow").textContent = t("backArrow");
+    document.getElementById("infoBackLabel").textContent = t("back");
   }
 
   function whatsappLink(p) {
@@ -319,6 +363,75 @@
     closeDrawer();
   };
 
+  function openMainMenu() {
+    mainMenuOverlay.classList.remove("hidden");
+    requestAnimationFrame(() => {
+      mainMenuOverlay.classList.add("visible");
+      mainMenuDrawer.classList.add("open");
+    });
+  }
+  function closeMainMenu() {
+    mainMenuOverlay.classList.remove("visible");
+    mainMenuDrawer.classList.remove("open");
+    window.setTimeout(() => mainMenuOverlay.classList.add("hidden"), 250);
+  }
+  menuBtn.onclick = openMainMenu;
+  mainMenuCloseBtn.onclick = closeMainMenu;
+  mainMenuOverlay.onclick = closeMainMenu;
+
+  function showPanel(el) {
+    [detailEl, infoEl].forEach((p) => p.classList.add("hidden"));
+    gridEl.classList.add("hidden");
+    document.querySelector(".toolbar").classList.add("hidden");
+    el.classList.remove("hidden");
+    el.classList.remove("slide-in");
+    void el.offsetWidth;
+    el.classList.add("slide-in");
+    el.scrollTop = 0;
+  }
+  function showGridView() {
+    lastInfo = null;
+    detailEl.classList.add("hidden");
+    infoEl.classList.add("hidden");
+    gridEl.classList.remove("hidden");
+    document.querySelector(".toolbar").classList.remove("hidden");
+  }
+
+  const WHATSAPP_SVG = `<svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M17.47 14.38c-.29-.15-1.71-.85-1.98-.94-.27-.1-.46-.15-.66.15-.2.29-.76.94-.93 1.13-.17.2-.34.22-.63.07-.29-.15-1.24-.46-2.36-1.46-.87-.78-1.46-1.74-1.63-2.03-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.2-.29.29-.49.1-.2.05-.37-.02-.51-.07-.15-.66-1.59-.9-2.18-.24-.57-.48-.5-.66-.51h-.56c-.2 0-.51.07-.78.37-.27.29-1.02 1-1.02 2.43 0 1.43 1.04 2.82 1.19 3.01.15.2 2.05 3.13 4.97 4.39.69.3 1.23.48 1.65.61.69.22 1.32.19 1.82.11.55-.08 1.71-.7 1.96-1.37.24-.68.24-1.26.17-1.38-.07-.12-.27-.2-.56-.34z"/>
+    <path d="M12.02 2C6.5 2 2.02 6.48 2.02 12c0 1.86.51 3.62 1.4 5.12L2 22l5.03-1.38A9.94 9.94 0 0 0 12.02 22C17.53 22 22 17.52 22 12S17.53 2 12.02 2zm0 18.14c-1.66 0-3.2-.48-4.5-1.31l-.32-.2-3.02.83.83-2.94-.21-.33a8.14 8.14 0 0 1-1.28-4.19c0-4.5 3.66-8.16 8.16-8.16S20.18 7.5 20.18 12s-3.66 8.14-8.16 8.14z"/>
+  </svg>`;
+
+  function showAbout() {
+    lastInfo = "about";
+    document.getElementById("infoTitle").textContent = t("aboutTitle");
+    document.getElementById("infoText").textContent = t("aboutText");
+    const c = document.getElementById("infoContact");
+    c.classList.add("hidden");
+    c.innerHTML = "";
+    showPanel(infoEl);
+  }
+  function showContact() {
+    lastInfo = "contact";
+    document.getElementById("infoTitle").textContent = t("contactTitle");
+    document.getElementById("infoText").textContent = t("contactText");
+    const c = document.getElementById("infoContact");
+    c.classList.remove("hidden");
+    c.innerHTML = `
+      <div class="contact-row"><span class="contact-label">${t("contactPhoneLabel")}</span><a class="contact-value" href="tel:+995557746238" dir="ltr">+995 55 774 6238</a></div>
+      <a class="whatsapp-btn" style="margin-top:14px" target="_blank" rel="noopener" href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t("contactWaGreeting"))}">
+        ${WHATSAPP_SVG}
+        <span>${t("contactWaBtn")}</span>
+      </a>`;
+    showPanel(infoEl);
+  }
+
+  menuBrandsBtn.onclick = () => { closeMainMenu(); window.setTimeout(openDrawer, 260); };
+  menuProductsBtn.onclick = () => { closeMainMenu(); showGridView(); };
+  menuAboutBtn.onclick = () => { closeMainMenu(); showAbout(); };
+  menuContactBtn.onclick = () => { closeMainMenu(); showContact(); };
+  document.getElementById("infoBackBtn").onclick = showGridView;
+
   let dotsScrollHandler = null;
 
   function showDetail(p) {
@@ -354,20 +467,11 @@
       .map(([label, value]) => `<div class="spec-label">${label}</div><div class="spec-value">${value}</div>`)
       .join("");
 
-    gridEl.classList.add("hidden");
-    document.querySelector(".toolbar").classList.add("hidden");
-    detailEl.classList.remove("hidden");
-    detailEl.classList.remove("slide-in");
-    void detailEl.offsetWidth;
-    detailEl.classList.add("slide-in");
-    detailEl.scrollTop = 0;
+    lastInfo = null;
+    showPanel(detailEl);
   }
 
-  backBtn.onclick = () => {
-    detailEl.classList.add("hidden");
-    gridEl.classList.remove("hidden");
-    document.querySelector(".toolbar").classList.remove("hidden");
-  };
+  backBtn.onclick = showGridView;
 
   langBtn.onclick = () => {
     locale = locale === "fa" ? "az" : "fa";
@@ -376,6 +480,8 @@
     buildFilterOptions();
     syncDrawerUI();
     renderGrid();
+    if (lastInfo === "about") showAbout();
+    else if (lastInfo === "contact") showContact();
   };
 
   function renderSkeleton() {

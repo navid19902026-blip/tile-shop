@@ -49,7 +49,12 @@ const COLOR_LABELS: Glossary = {
   "صورتی روشن": { en: "Light Pink", az: "Açıq çəhrayı", ka: "ღია ვარდისფერი" },
   "قهوه‌ای": { en: "Brown", az: "Qəhvəyi", ka: "ყავისფერი" },
   "قهوه‌ای روشن": { en: "Light Brown", az: "Açıq qəhvəyi", ka: "ღია ყავისფერი" },
+  "قهوه‌ای تیره": { en: "Dark Brown", az: "Tünd qəhvəyi", ka: "მუქი ყავისფერი" },
   "چندرنگ": { en: "Multicolor", az: "Rəngbərəng", ka: "მრავალფეროვანი" },
+  "نقره‌ای": { en: "Silver", az: "Gümüşü", ka: "ვერცხლისფერი" },
+  "سبز": { en: "Green", az: "Yaşıl", ka: "მწვანე" },
+  "استخوانی": { en: "Bone", az: "Sümük rəngi", ka: "ძვლისფერი" },
+  "طلایی": { en: "Gold", az: "Qızılı", ka: "ოქროსფერი" },
 };
 
 const MATERIAL_LABELS: Glossary = {
