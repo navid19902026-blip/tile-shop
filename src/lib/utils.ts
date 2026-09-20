@@ -62,6 +62,17 @@ export function formatDate(date: Date | string, locale: string) {
   return new Date(date).toLocaleDateString(DATE_LOCALE_BY_LOCALE[locale] ?? "en-US");
 }
 
+/**
+ * Substitute a translated string's {param} placeholders manually, bypassing
+ * next-intl's ICU MessageFormat runtime path. The ICU parser dependency has
+ * been unreliable in this project's production host, so parameterized
+ * messages are stored as plain strings with {param} tokens and interpolated
+ * here instead of via next-intl's `t(key, values)` call.
+ */
+export function interpolate(template: string, values: Record<string, string | number>) {
+  return template.replace(/\{(\w+)\}/g, (match, key) => (key in values ? String(values[key]) : match));
+}
+
 export function slugify(input: string) {
   return input
     .trim()

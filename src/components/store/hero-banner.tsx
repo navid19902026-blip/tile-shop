@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { ArrowLeft, ArrowRight, ChevronRight, ChevronLeft } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, interpolate } from "@/lib/utils";
 import { RTL_LOCALES } from "@/i18n/routing";
 
 export type BannerSlide = {
@@ -105,7 +105,7 @@ export default function HeroBanner({ slides }: { slides: BannerSlide[] }) {
                 <button
                   key={s.id}
                   onClick={() => setIndex(i)}
-                  aria-label={t("goToSlide", { n: i + 1 })}
+                  aria-label={interpolate(t("goToSlide"), { n: i + 1 })}
                   className={cn(
                     "h-1.5 rounded-full transition-all",
                     i === index ? "w-6 bg-white" : "w-1.5 bg-white/40 hover:bg-white/60"
