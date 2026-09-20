@@ -1,9 +1,13 @@
+import NextAuth from "next-auth";
 import { NextResponse } from "next/server";
 import createIntlMiddleware from "next-intl/middleware";
 import { routing } from "@/i18n/routing";
-import { auth } from "@/lib/auth";
+import { authConfig } from "@/lib/auth.config";
 
 const intlMiddleware = createIntlMiddleware(routing);
+// Edge-safe auth instance (no Prisma adapter) — middleware runs on the Edge
+// Runtime, which the Node.js Prisma client can't use.
+const { auth } = NextAuth(authConfig);
 
 // Locales that always show up as a URL prefix (the default locale, fa, does not).
 const PREFIXED_LOCALES = ["az", "en", "ka"];
