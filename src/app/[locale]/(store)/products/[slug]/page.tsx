@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
 import { Star, Truck, ShieldCheck } from "lucide-react";
 import { getProductBySlug, getRelatedProducts } from "@/lib/products";
-import { formatPrice, formatNumber } from "@/lib/utils";
+import { formatPrice, formatNumber, interpolate } from "@/lib/utils";
 import { localizedName, localizedDescription, colorName, materialName, usageName } from "@/lib/product-i18n";
 import { brandName } from "@/lib/brands";
 import ProductGallery from "@/components/store/product-gallery";
@@ -62,7 +62,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <div className="mt-2 flex items-center gap-1.5 text-sm text-slate-500">
               <Star size={16} className="fill-amber-400 text-amber-400" />
               <span className="font-bold text-slate-700">{product.avgRating?.toFixed(1)}</span>
-              <span>({t("product.reviewsCount", { count: formatNumber(product.reviewCount, locale) })})</span>
+              <span>({interpolate(t.raw("product.reviewsCount"), { count: formatNumber(product.reviewCount, locale) })})</span>
             </div>
           ) : (
             <p className="mt-2 text-sm text-slate-400">{t("product.noRatingYet")}</p>

@@ -4,7 +4,7 @@ import { PackageSearch } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { formatPrice, formatNumber, formatDate } from "@/lib/utils";
+import { formatPrice, formatNumber, formatDate, interpolate } from "@/lib/utils";
 
 export default async function OrdersPage() {
   const session = await auth();
@@ -36,9 +36,9 @@ export default async function OrdersPage() {
               className="flex items-center justify-between rounded-2xl border border-slate-100 p-4 hover:border-brand-200"
             >
               <div>
-                <div className="text-sm font-bold text-slate-800">{t("account.orderNumber", { id: o.id.slice(-6) })}</div>
+                <div className="text-sm font-bold text-slate-800">{interpolate(t.raw("account.orderNumber"), { id: o.id.slice(-6) })}</div>
                 <div className="mt-1 text-xs text-slate-400">
-                  {t("account.itemsCount", { count: formatNumber(o.items.length, locale) })} · {formatDate(o.createdAt, locale)}
+                  {interpolate(t.raw("account.itemsCount"), { count: formatNumber(o.items.length, locale) })} · {formatDate(o.createdAt, locale)}
                 </div>
               </div>
               <div className="text-left">

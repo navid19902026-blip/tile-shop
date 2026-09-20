@@ -3,7 +3,7 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { formatPrice, formatNumber, formatDate } from "@/lib/utils";
+import { formatPrice, formatNumber, formatDate, interpolate } from "@/lib/utils";
 import { localizedName } from "@/lib/product-i18n";
 
 export default async function OrderDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -29,8 +29,8 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
       <Link href="/account/orders" className="mb-4 inline-block text-xs text-slate-400 hover:text-brand-600">
         {t("account.backToOrders")}
       </Link>
-      <h1 className="mb-1 text-lg font-extrabold text-slate-900">{t("account.orderNumber", { id: order.id.slice(-6) })}</h1>
-      <p className="mb-6 text-xs text-slate-400">{t("account.orderedOn", { date: formatDate(order.createdAt, locale) })}</p>
+      <h1 className="mb-1 text-lg font-extrabold text-slate-900">{interpolate(t.raw("account.orderNumber"), { id: order.id.slice(-6) })}</h1>
+      <p className="mb-6 text-xs text-slate-400">{interpolate(t.raw("account.orderedOn"), { date: formatDate(order.createdAt, locale) })}</p>
 
       {order.status !== "CANCELED" && (
         <div className="mb-8 flex items-center">
@@ -77,7 +77,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
             <Row label={t("account.finalAmount")} value={formatPrice(order.totalAmount, locale)} bold />
           </div>
           {order.pointsEarned > 0 && (
-            <p className="text-xs text-emerald-600">{t("account.pointsEarnedNote", { points: formatNumber(order.pointsEarned, locale) })}</p>
+            <p className="text-xs text-emerald-600">{interpolate(t.raw("account.pointsEarnedNote"), { points: formatNumber(order.pointsEarned, locale) })}</p>
           )}
           <div className="border-t border-slate-100 pt-3 text-xs text-slate-500">
             <div className="mb-1 font-bold text-slate-700">{t("account.shippingAddress")}</div>

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Calculator } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { formatPrice, formatNumber } from "@/lib/utils";
+import { formatPrice, formatNumber, interpolate } from "@/lib/utils";
 import { useCartStore } from "@/lib/cart-store";
 import { toast } from "sonner";
 
@@ -66,7 +66,7 @@ export default function CoverageCalculator({
         <div className="mt-4 space-y-2 rounded-xl bg-slate-50 p-3 text-sm">
           <Row label={t("product.calculator.area")} value={`${formatNumber(area.toFixed(1), locale)} ${sqmLabel}`} />
           <Row
-            label={t("product.calculator.withWaste", { percent: formatNumber(WASTE_PERCENT, locale) })}
+            label={interpolate(t.raw("product.calculator.withWaste"), { percent: formatNumber(WASTE_PERCENT, locale) })}
             value={`${formatNumber(roundedSqm, locale)} ${sqmLabel}`}
           />
           {product.unit === "CARTON" || product.unit === "SQUARE_METER" ? (
@@ -83,7 +83,7 @@ export default function CoverageCalculator({
             disabled={product.stock <= 0}
             className="mt-2 w-full rounded-xl bg-brand-500 py-2.5 text-sm font-bold text-white transition hover:bg-brand-600 disabled:opacity-50"
           >
-            {t("product.calculator.addToCartWithAmount", { amount: formatNumber(roundedSqm, locale) })}
+            {interpolate(t.raw("product.calculator.addToCartWithAmount"), { amount: formatNumber(roundedSqm, locale) })}
           </button>
         </div>
       )}

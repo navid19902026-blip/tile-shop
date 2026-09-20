@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { interpolate } from "@/lib/utils";
 import { getFilteredProducts, getFilterOptions, type ProductFilters } from "@/lib/products";
 import { prisma } from "@/lib/prisma";
 import ProductCard from "@/components/store/product-card";
@@ -63,9 +64,9 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
       <h1 className="mb-1 text-xl font-extrabold text-slate-900">
-        {categoryLabel ?? (filters.q ? t("searchResultsFor", { query: filters.q }) : t("title"))}
+        {categoryLabel ?? (filters.q ? interpolate(t.raw("searchResultsFor"), { query: filters.q }) : t("title"))}
       </h1>
-      <p className="mb-6 text-sm text-slate-400">{t("resultsCount", { count: result.total })}</p>
+      <p className="mb-6 text-sm text-slate-400">{interpolate(t.raw("resultsCount"), { count: result.total })}</p>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-[220px_1fr]">
         <aside>

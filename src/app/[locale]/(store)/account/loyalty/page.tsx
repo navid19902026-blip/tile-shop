@@ -4,7 +4,7 @@ import { Award, TrendingUp, Gift } from "lucide-react";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getLoyaltySettings, tierDiscountPercent } from "@/lib/loyalty";
-import { formatPrice, formatNumber, formatDate } from "@/lib/utils";
+import { formatPrice, formatNumber, formatDate, interpolate } from "@/lib/utils";
 
 const TIER_ORDER = ["BRONZE", "SILVER", "GOLD"] as const;
 
@@ -43,7 +43,7 @@ export default async function LoyaltyPage() {
       <div className="mb-6 rounded-2xl border border-slate-100 p-5">
         <div className="mb-3 flex items-center justify-between text-sm">
           <span className="font-bold text-slate-800">
-            {nextTier ? t("account.toNextTier", { tier: t(`tiers.${nextTier}`) }) : t("account.atHighestTier")}
+            {nextTier ? interpolate(t.raw("account.toNextTier"), { tier: t(`tiers.${nextTier}`) }) : t("account.atHighestTier")}
           </span>
           {nextThreshold && (
             <span className="text-slate-400">
@@ -56,13 +56,13 @@ export default async function LoyaltyPage() {
         </div>
         {tierPercent > 0 && (
           <p className="mt-3 text-xs text-emerald-600">
-            {t("account.loyaltyDiscountNote", { tier: t(`tiers.${user.tier}`), percent: formatNumber(tierPercent, locale) })}
+            {interpolate(t.raw("account.loyaltyDiscountNote"), { tier: t(`tiers.${user.tier}`), percent: formatNumber(tierPercent, locale) })}
           </p>
         )}
       </div>
 
       <div className="mb-6 rounded-2xl border border-brand-100 bg-brand-50/40 p-4 text-sm text-slate-600">
-        {t("account.pointsRuleNote", {
+        {interpolate(t.raw("account.pointsRuleNote"), {
           toman: formatPrice(settings.pointsPerToman, locale),
           value: formatPrice(settings.pointValueInToman, locale),
         })}

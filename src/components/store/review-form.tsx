@@ -4,6 +4,7 @@ import { useFormState, useFormStatus } from "react-dom";
 import { useState } from "react";
 import { Star } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { interpolate } from "@/lib/utils";
 import { submitReview, type ReviewFormState } from "@/actions/reviews";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
@@ -34,7 +35,7 @@ export default function ReviewForm({ productId, productSlug }: { productId: stri
 
       <div className="flex items-center gap-1">
         {[1, 2, 3, 4, 5].map((n) => (
-          <button key={n} type="button" onClick={() => setRating(n)} aria-label={t("ratingLabel", { n })}>
+          <button key={n} type="button" onClick={() => setRating(n)} aria-label={interpolate(t.raw("ratingLabel"), { n })}>
             <Star size={22} className={n <= rating ? "fill-amber-400 text-amber-400" : "text-slate-200"} />
           </button>
         ))}

@@ -105,7 +105,7 @@ export default function HeroBanner({ slides }: { slides: BannerSlide[] }) {
                 <button
                   key={s.id}
                   onClick={() => setIndex(i)}
-                  aria-label={interpolate(t("goToSlide"), { n: i + 1 })}
+                  aria-label={interpolate(t.raw("goToSlide"), { n: i + 1 })}
                   className={cn(
                     "h-1.5 rounded-full transition-all",
                     i === index ? "w-6 bg-white" : "w-1.5 bg-white/40 hover:bg-white/60"

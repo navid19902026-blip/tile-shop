@@ -3,7 +3,7 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft, BadgeCheck } from "lucide-react";
 import { getFeaturedBrandsWithStats } from "@/lib/brands";
-import { formatPrice, formatNumber } from "@/lib/utils";
+import { formatPrice, formatNumber, interpolate } from "@/lib/utils";
 
 export async function generateMetadata() {
   const t = await getTranslations("brandsPage");
@@ -40,7 +40,7 @@ export default async function BrandsPage() {
               <p className="mb-4 text-sm leading-7 text-slate-500">{brand.description}</p>
 
               <div className="mb-4 flex items-center justify-between text-xs text-slate-400">
-                <span>{t("productsAvailable", { count: formatNumber(brand.productCount, locale) })}</span>
+                <span>{interpolate(t.raw("productsAvailable"), { count: formatNumber(brand.productCount, locale) })}</span>
                 {brand.minPrice && <span>{t("from")} {formatPrice(brand.minPrice, locale)}</span>}
               </div>
 
@@ -48,7 +48,7 @@ export default async function BrandsPage() {
                 href={`/products?brand=${encodeURIComponent(brand.name)}`}
                 className="flex items-center justify-center gap-2 rounded-xl bg-brand-500 py-2.5 text-sm font-bold text-white hover:bg-brand-600"
               >
-                {t("viewProducts", { brand: brand.name })}
+                {interpolate(t.raw("viewProducts"), { brand: brand.name })}
                 <ArrowLeft size={15} />
               </Link>
             </div>

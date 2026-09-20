@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { MapPin, Truck, Tag, Award, Loader2 } from "lucide-react";
 import { useCartStore } from "@/lib/cart-store";
-import { formatPrice, formatNumber } from "@/lib/utils";
+import { formatPrice, formatNumber, interpolate } from "@/lib/utils";
 import { placeOrderAndRedirect } from "@/actions/checkout";
 
 type Address = {
@@ -127,7 +127,7 @@ export default function CheckoutClient({
                 </span>
                 <span className="text-slate-500">{formatPrice(SHIPPING_COST, locale)}</span>
               </label>
-              <p className="text-xs text-slate-400">{t("checkout.freeShippingNote", { amount: formatPrice(FREE_SHIPPING_THRESHOLD, locale) })}</p>
+              <p className="text-xs text-slate-400">{interpolate(t.raw("checkout.freeShippingNote"), { amount: formatPrice(FREE_SHIPPING_THRESHOLD, locale) })}</p>
             </div>
           </Section>
 
@@ -145,7 +145,7 @@ export default function CheckoutClient({
               <label className="flex items-center justify-between rounded-xl border border-slate-200 p-3 text-sm">
                 <span className="flex items-center gap-2">
                   <input type="checkbox" checked={usePoints} onChange={(e) => setUsePoints(e.target.checked)} className="accent-brand-500" />
-                  {t("checkout.usePoints", {
+                  {interpolate(t.raw("checkout.usePoints"), {
                     points: formatNumber(loyaltyPoints, locale),
                     amount: formatPrice(loyaltyPoints * pointValueInToman, locale),
                   })}
@@ -153,7 +153,7 @@ export default function CheckoutClient({
               </label>
               {tierPercent > 0 && (
                 <p className="mt-2 text-xs text-emerald-600">
-                  {t("checkout.tierDiscountNote", { tier: t(`tiers.${tier}`), percent: formatNumber(tierPercent, locale) })}
+                  {interpolate(t.raw("checkout.tierDiscountNote"), { tier: t(`tiers.${tier}`), percent: formatNumber(tierPercent, locale) })}
                 </p>
               )}
             </Section>

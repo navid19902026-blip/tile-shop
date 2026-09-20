@@ -6,7 +6,7 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getLoyaltySettings, pointsToToman, tierDiscountPercent } from "@/lib/loyalty";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, interpolate } from "@/lib/utils";
 import { localizedName } from "@/lib/product-i18n";
 
 const SHIPPING_COST = 350_000;
@@ -45,7 +45,8 @@ export async function placeOrder(input: z.infer<typeof checkoutSchema>): Promise
 
   for (const item of data.items) {
     const product = products.find((p) => p.id === item.productId)!;
-    if (product.stock < item.quantity) return { error: t("insufficientStock", { product: localizedName(product, locale) }) };
+    if (product.stock < item.quantity)
+      return { error: interpolate(t.raw("insufficientStock"), { product: localizedName(product, locale) }) };
   }
 
   const subtotal = data.items.reduce((sum, item) => {
@@ -65,7 +66,8 @@ export async function placeOrder(input: z.infer<typeof checkoutSchema>): Promise
       return { error: t("invalidDiscountCode") };
     }
     if (code.maxUses && code.usedCount >= code.maxUses) return { error: t("discountCodeExhausted") };
-    if (subtotal < code.minOrderAmount) return { error: t("minOrderForDiscount", { amount: formatPrice(code.minOrderAmount, locale) }) };
+    if (subtotal < code.minOrderAmount)
+      return { error: interpolate(t.raw("minOrderForDiscount"), { amount: formatPrice(code.minOrderAmount, locale) }) };
 
     discountCodeId = code.id;
     discountAmount += code.type === "PERCENT" ? Math.round((subtotal * code.value) / 100) : code.value;
