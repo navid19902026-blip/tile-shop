@@ -10,6 +10,19 @@ import HeroBanner, { type BannerSlide } from "@/components/store/hero-banner";
 import { formatNumber } from "@/lib/utils";
 
 export default async function HomePage() {
+  try {
+    return await HomePageInner();
+  } catch (err) {
+    const e = err as Error;
+    return (
+      <pre style={{ direction: "ltr", padding: 20, whiteSpace: "pre-wrap", fontSize: 12, color: "red" }}>
+        {"TEMP DEBUG\nname: " + e?.name + "\nmessage: " + e?.message + "\nstack:\n" + e?.stack}
+      </pre>
+    );
+  }
+}
+
+async function HomePageInner() {
   const t = await getTranslations();
   const locale = await getLocale();
 
