@@ -16,4 +16,8 @@ export const routing = defineRouting({
   locales: LOCALES,
   defaultLocale: "fa",
   localePrefix: "as-needed",
+  // Cookie/Accept-Language-based auto-redirect has caused an infinite
+  // redirect loop on this host's reverse proxy (the site already has its
+  // own language switcher, so this isn't needed).
+  localeDetection: false,
 });
