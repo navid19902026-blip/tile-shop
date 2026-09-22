@@ -1,13 +1,9 @@
-import NextAuth from "next-auth";
-import { NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
+import { NextResponse, type NextRequest } from "next/server";
 import createIntlMiddleware from "next-intl/middleware";
 import { routing } from "@/i18n/routing";
-import { authConfig } from "@/lib/auth.config";
 
 const intlMiddleware = createIntlMiddleware(routing);
-// Edge-safe auth instance (no Prisma adapter) — middleware runs on the Edge
-// Runtime, which the Node.js Prisma client can't use.
-const { auth } = NextAuth(authConfig);
 
 // Locales that always show up as a URL prefix (the default locale, fa, does not).
 const PREFIXED_LOCALES = ["az", "en", "ka"];
@@ -23,10 +19,16 @@ function localePrefixOf(pathname: string) {
   return match ? `/${match[1]}` : "";
 }
 
-export default auth((req) => {
+// Reads the session JWT directly instead of running the full NextAuth
+// auth() wrapper. auth() runs NextAuth's whole request pipeline (CSRF
+// token issuance, callback-url tracking, etc.) meant for actual sign-in
+// flows; invoking it for a passive middleware check made every request
+// redirect to itself while it tried to establish a CSRF cookie.
+export default async function middleware(req: NextRequest) {
+  const token = await getToken({ req, secret: process.env.AUTH_SECRET });
+  const isLoggedIn = !!token;
+  const role = token?.role as string | undefined;
   const { nextUrl } = req;
-  const isLoggedIn = !!req.auth;
-  const role = req.auth?.user?.role;
   const pathname = nextUrl.pathname;
 
   // The admin panel is intentionally not localized (internal/operator-facing only).
@@ -44,7 +46,7 @@ export default auth((req) => {
   }
 
   return intlMiddleware(req);
-});
+}
 
 export const config = {
   matcher: ["/((?!api|_next|_vercel|uploads|favicon.ico|robots.txt|sitemap.xml).*)"],
