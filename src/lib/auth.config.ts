@@ -6,6 +6,11 @@ import type { NextAuthConfig } from "next-auth";
 // Prisma adapter and Credentials provider lives in auth.ts, used only in
 // Node.js runtime contexts (API routes, Server Components).
 export const authConfig: NextAuthConfig = {
+  // This host sits behind Parspack's reverse proxy, which doesn't forward
+  // request headers in a way Auth.js can verify against AUTH_URL by default.
+  // Without trustHost, Auth.js rejects the host on every request, which
+  // showed up as an infinite redirect loop on every page.
+  trustHost: true,
   session: { strategy: "jwt" },
   pages: {
     signIn: "/auth/login",
