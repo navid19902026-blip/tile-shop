@@ -2,6 +2,7 @@
   "use strict";
 
   const WHATSAPP_NUMBER = "995557746238";
+  const WEBSITE_URL = "http://parsianceram.com";
   const TOMAN_PER_USD = 230000;
 
   const STRINGS = {
@@ -39,9 +40,10 @@
       menuAbout: "درباره ما",
       menuContact: "ارتباط با ما",
       aboutTitle: "درباره پارسیان سرام",
-      aboutText: "پارسیان سرام، عرضه‌کننده تخصصی انواع کاشی و سرامیک از برترین برندهای ایرانی است. ما با گردآوری محصولات باکیفیت از کارخانه‌های معتبر کشور، امکان انتخاب و سفارش آسان را برای مشتریان فراهم می‌کنیم. این اپلیکیشن نسخه نمایشی آفلاین کاتالوگ محصولات ماست.",
+      aboutText: "پارسیان سرام، عرضه‌کننده تخصصی انواع کاشی و سرامیک از برترین برندهای ایرانی است. ما با گردآوری محصولات باکیفیت از کارخانه‌های معتبر کشور، امکان انتخاب و سفارش آسان را برای مشتریان فراهم می‌کنیم. این اپلیکیشن نسخه نمایشی آفلاین کاتالوگ محصولات ماست؛ برای خرید آنلاین، پیگیری سفارش، باشگاه مشتریان و امتیازات ویژه، از فروشگاه اینترنتی ما دیدن کنید.",
+      visitWebsite: "مشاهده فروشگاه اینترنتی",
       contactTitle: "ارتباط با ما",
-      contactText: "برای مشاوره، استعلام قیمت و ثبت سفارش می‌توانید از طریق واتساپ با ما در ارتباط باشید.",
+      contactText: "برای مشاوره، استعلام قیمت و ثبت سفارش می‌توانید از طریق واتساپ یا فروشگاه اینترنتی با ما در ارتباط باشید.",
       contactPhoneLabel: "شماره تماس",
       contactWaBtn: "گفتگو در واتساپ",
       contactWaGreeting: "سلام، می‌خواستم درباره محصولات پارسیان سرام سوال بپرسم.",
@@ -80,9 +82,10 @@
       menuAbout: "Haqqımızda",
       menuContact: "Əlaqə",
       aboutTitle: "Parsian Ceram haqqında",
-      aboutText: "Parsian Ceram, İranın aparıcı brendlərindən keyfiyyətli kafel və keramika məhsulları təqdim edən ixtisaslaşmış platformadır. Bu tətbiq məhsul kataloqumuzun oflayn nümayiş versiyasıdır.",
+      aboutText: "Parsian Ceram, İranın aparıcı brendlərindən keyfiyyətli kafel və keramika məhsulları təqdim edən ixtisaslaşmış platformadır. Bu tətbiq məhsul kataloqumuzun oflayn nümayiş versiyasıdır; onlayn sifariş, sifariş izləmə və xüsusi endirimlər üçün internet mağazamıza baxın.",
+      visitWebsite: "İnternet mağazasına bax",
       contactTitle: "Əlaqə",
-      contactText: "Məsləhət, qiymət sorğusu və sifariş üçün WhatsApp vasitəsilə bizimlə əlaqə saxlaya bilərsiniz.",
+      contactText: "Məsləhət, qiymət sorğusu və sifariş üçün WhatsApp və ya internet mağazamız vasitəsilə bizimlə əlaqə saxlaya bilərsiniz.",
       contactPhoneLabel: "Telefon nömrəsi",
       contactWaBtn: "WhatsApp-da yazın",
       contactWaGreeting: "Salam, Parsian Ceram məhsulları haqqında sual vermək istəyirdim.",
@@ -402,13 +405,25 @@
     <path d="M12.02 2C6.5 2 2.02 6.48 2.02 12c0 1.86.51 3.62 1.4 5.12L2 22l5.03-1.38A9.94 9.94 0 0 0 12.02 22C17.53 22 22 17.52 22 12S17.53 2 12.02 2zm0 18.14c-1.66 0-3.2-.48-4.5-1.31l-.32-.2-3.02.83.83-2.94-.21-.33a8.14 8.14 0 0 1-1.28-4.19c0-4.5 3.66-8.16 8.16-8.16S20.18 7.5 20.18 12s-3.66 8.14-8.16 8.14z"/>
   </svg>`;
 
+  const WEBSITE_SVG = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+  </svg>`;
+
+  function websiteButtonHtml(extraStyle) {
+    return `<a class="website-btn" style="${extraStyle || ""}" target="_blank" rel="noopener" href="${WEBSITE_URL}">
+      ${WEBSITE_SVG}
+      <span>${t("visitWebsite")}</span>
+    </a>`;
+  }
+
   function showAbout() {
     lastInfo = "about";
     document.getElementById("infoTitle").textContent = t("aboutTitle");
     document.getElementById("infoText").textContent = t("aboutText");
     const c = document.getElementById("infoContact");
-    c.classList.add("hidden");
-    c.innerHTML = "";
+    c.classList.remove("hidden");
+    c.innerHTML = websiteButtonHtml();
     showPanel(infoEl);
   }
   function showContact() {
@@ -422,7 +437,8 @@
       <a class="whatsapp-btn" style="margin-top:14px" target="_blank" rel="noopener" href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t("contactWaGreeting"))}">
         ${WHATSAPP_SVG}
         <span>${t("contactWaBtn")}</span>
-      </a>`;
+      </a>
+      ${websiteButtonHtml("margin-top:10px")}`;
     showPanel(infoEl);
   }
 

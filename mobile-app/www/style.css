@@ -328,6 +328,24 @@ html, body {
   box-shadow: 0 4px 14px rgba(37,211,102,.35);
   transition: transform .15s ease, box-shadow .15s ease;
 }
+
+.website-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #2c2c2c, #000);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 14.5px;
+  padding: 13px;
+  border-radius: 12px;
+  margin-bottom: 4px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.25);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.website-btn:active { transform: scale(0.97); }
 .whatsapp-btn:active { transform: scale(0.97); box-shadow: 0 2px 8px rgba(37,211,102,.35); }
 .whatsapp-icon { width: 20px; height: 20px; flex-shrink: 0; }
 
