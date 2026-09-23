@@ -506,6 +506,24 @@
       .join("");
   }
 
+  // Android hardware/gesture back button: step back through in-app views
+  // (drawer -> menu -> detail/info -> grid) instead of immediately exiting
+  // the app, which is Capacitor's default with no listener registered.
+  const capacitorApp = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App;
+  if (capacitorApp) {
+    capacitorApp.addListener("backButton", () => {
+      if (mainMenuDrawer.classList.contains("open")) {
+        closeMainMenu();
+      } else if (filterDrawer.classList.contains("open")) {
+        closeDrawer();
+      } else if (!detailEl.classList.contains("hidden") || !infoEl.classList.contains("hidden")) {
+        showGridView();
+      } else {
+        capacitorApp.exitApp();
+      }
+    });
+  }
+
   applyChrome();
   renderSkeleton();
 
