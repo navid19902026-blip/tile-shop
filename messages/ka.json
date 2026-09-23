@@ -115,6 +115,10 @@
     "yes": "დიახ",
     "no": "არა",
     "noImage": "სურათი არ არის",
+    "zoomImage": "სურათის გადიდება",
+    "closeZoom": "დახურვა",
+    "prevImage": "წინა სურათი",
+    "nextImage": "შემდეგი სურათი",
     "calculator": {
       "examplePrefix": "მაგ.",
       "title": "საჭირო ფართობის კალკულატორი",

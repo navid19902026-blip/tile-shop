@@ -115,6 +115,10 @@
     "yes": "Var",
     "no": "Yoxdur",
     "noImage": "Şəkil yoxdur",
+    "zoomImage": "Şəkli böyüt",
+    "closeZoom": "Bağla",
+    "prevImage": "Əvvəlki şəkil",
+    "nextImage": "Növbəti şəkil",
     "calculator": {
       "examplePrefix": "məsələn",
       "title": "Lazımi sahə kalkulyatoru",

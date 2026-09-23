@@ -115,6 +115,10 @@
     "yes": "دارد",
     "no": "ندارد",
     "noImage": "بدون تصویر",
+    "zoomImage": "بزرگ‌نمایی تصویر",
+    "closeZoom": "بستن",
+    "prevImage": "تصویر قبلی",
+    "nextImage": "تصویر بعدی",
     "calculator": {
       "examplePrefix": "مثلاً",
       "title": "محاسبه‌گر متراژ مورد نیاز",

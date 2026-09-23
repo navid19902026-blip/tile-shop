@@ -115,6 +115,10 @@
     "yes": "Yes",
     "no": "No",
     "noImage": "No Image",
+    "zoomImage": "Zoom image",
+    "closeZoom": "Close",
+    "prevImage": "Previous image",
+    "nextImage": "Next image",
     "calculator": {
       "examplePrefix": "e.g.",
       "title": "Coverage Calculator",
